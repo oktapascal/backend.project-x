@@ -5,8 +5,6 @@ import {
   ValidationError,
   ValidationPipe,
 } from '@nestjs/common';
-import { ServeStaticModule } from '@nestjs/serve-static';
-import { join } from 'path';
 import {
   RequestLoggerMiddleware,
   SessionCookieAccessMiddleware,
@@ -25,9 +23,6 @@ import { PgConfig } from './common/configs/database';
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     TypeOrmModule.forRootAsync(PgConfig),
-    ServeStaticModule.forRoot({
-      rootPath: join(__dirname, '../..', 'client', 'dist'),
-    }),
     UsersModule,
   ],
   controllers: [],
