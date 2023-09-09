@@ -31,12 +31,12 @@ async function bootstrap() {
         // show logs in console
         new transports.Console({
           format: format.combine(
-              format.cli(),
-              format.splat(),
-              format.timestamp(),
-              format.printf((info) => {
-                return `[${info.timestamp}] [${info.level}]: ${info.message}`;
-              }),
+            format.cli(),
+            format.splat(),
+            format.timestamp(),
+            format.printf((info) => {
+              return `[${info.timestamp}] [${info.level}]: ${info.message}`;
+            }),
           ),
         }),
       ],
@@ -46,14 +46,15 @@ async function bootstrap() {
   app.enableCors({
     origin: ['http://localhost:5173'],
     methods: ['POST', 'GET', 'PATCH', 'DELETE'],
+    allowedHeaders: ['Request-Time', 'Accept', 'Content-Type'],
   });
 
-  app.setGlobalPrefix('api')
+  app.setGlobalPrefix('api');
 
   app.use(
-      CookieSession({
-        keys: ['M0geIzGFDTgz'],
-      }),
+    CookieSession({
+      keys: ['M0geIzGFDTgz'],
+    }),
   );
 
   await app.listen(3000);
