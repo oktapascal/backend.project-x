@@ -5,6 +5,7 @@ import { format, transports } from 'winston';
 import 'winston-daily-rotate-file';
 
 // noinspection ES6ConvertRequireIntoImport
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const CookieSession = require('cookie-session');
 
 async function bootstrap() {
@@ -53,7 +54,7 @@ async function bootstrap() {
 
   app.use(
     CookieSession({
-      keys: ['M0geIzGFDTgz'],
+      keys: process.env.COOKIE_SESSION_SECRET,
     }),
   );
 
