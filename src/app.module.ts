@@ -5,11 +5,7 @@ import {
   ValidationError,
   ValidationPipe,
 } from '@nestjs/common';
-import {
-  RequestLoggerMiddleware,
-  SessionCookieAccessMiddleware,
-  SessionCookieRefreshMiddleware,
-} from './common/middlewares';
+import { RequestLoggerMiddleware } from './common/middlewares';
 import { ConfigModule } from '@nestjs/config';
 import { APP_PIPE } from '@nestjs/core';
 import { UsersModule } from './users/users.module';
@@ -47,9 +43,8 @@ export class AppModule {
   // noinspection JSUnusedGlobalSymbols
   configure(consumer: MiddlewareConsumer) {
     consumer
-      .apply(SessionCookieAccessMiddleware, RequestLoggerMiddleware)
+      .apply(RequestLoggerMiddleware)
       .exclude('auth/refresh')
       .forRoutes('*');
-    consumer.apply(SessionCookieRefreshMiddleware).forRoutes('auth/refresh');
   }
 }
