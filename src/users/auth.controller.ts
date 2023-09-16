@@ -8,7 +8,6 @@ import {
   Ip,
   Patch,
   Post,
-  Session,
   UseGuards,
 } from '@nestjs/common';
 import { AUTH_SERVICES, AuthServices } from './auth.service';
@@ -38,16 +37,12 @@ export class AuthController {
     @Body() request: SigninRequest,
     @Ip() ip_address: string,
     @UserAgent() user_agent: string | undefined,
-    @Session() session: any,
   ) {
     request.ip_address = ip_address;
     request.user_agent = user_agent;
 
     const [access_token, refresh_token] =
       await this.authService.SignIn(request);
-
-    session.access_token = access_token;
-    session.refresh_token = refresh_token;
 
     return { access_token, refresh_token };
   }
@@ -56,7 +51,7 @@ export class AuthController {
   @HttpCode(HttpStatus.OK)
   @UseGuards(RefreshTokenGuard)
   @Public()
-  async refresh(@CurrentUser() user: Express.User, @Session() session: any) {
+  async refresh(@CurrentUser() user: Express.User) {
     const request = new RefreshTokenRequest();
     request.user_id = user['sub'];
     request.token = user['refresh_token'];
@@ -64,19 +59,13 @@ export class AuthController {
     const [access_token, refresh_token] =
       await this.authService.RefreshToken(request);
 
-    session.access_token = access_token;
-    session.refresh_token = refresh_token;
-
     return { access_token, refresh_token };
   }
 
   @Patch('logout')
   @HttpCode(HttpStatus.OK)
-  async logout(@CurrentUser() user: Express.User, @Session() session: any) {
+  async logout(@CurrentUser() user: Express.User) {
     await this.authService.SignOut(user['sub']);
-
-    session.access_token = null;
-    session.refresh_token = null;
 
     return {
       code: HttpStatus.OK,
