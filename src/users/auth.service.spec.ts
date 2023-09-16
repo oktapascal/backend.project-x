@@ -1,16 +1,10 @@
 import { USERS_SERVICES, UsersServiceImpl } from './users.service';
-import {
-  TOKEN_MANAGER_SERVICES,
-  TokenManagerServicesImpl,
-} from './token-manager.service';
+import { TOKEN_MANAGER_SERVICES, TokenManagerServicesImpl } from './token-manager.service';
 import { AUTH_REPOSITORIES, AuthRepositoriesImpl } from './auth.repositories';
 import { Test, TestingModule } from '@nestjs/testing';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
-import {
-  UsersRepositoriesImpl,
-  USERS_REPOSITORIES,
-} from './users.repositories';
+import { UsersRepositoriesImpl, USERS_REPOSITORIES } from './users.repositories';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SqlLiteDatasource } from '../test-utils/SqlLiteTestingModule';
 import { AUTH_SERVICES, AuthServicesImpl } from './auth.service';
@@ -61,9 +55,7 @@ describe('AuthService', () => {
 
     authService = module.get<AuthServicesImpl>(AUTH_SERVICES);
     usersService = module.get<UsersServiceImpl>(USERS_SERVICES);
-    tokenmanagerService = module.get<TokenManagerServicesImpl>(
-      TOKEN_MANAGER_SERVICES,
-    );
+    tokenmanagerService = module.get<TokenManagerServicesImpl>(TOKEN_MANAGER_SERVICES);
     authRepo = module.get<AuthRepositoriesImpl>(AUTH_REPOSITORIES);
     userRepo = module.get<UsersRepositoriesImpl>(USERS_REPOSITORIES);
 
@@ -118,7 +110,7 @@ describe('AuthService', () => {
     it('should generate access & refresh token', async () => {
       const result = await authService.SignIn(request);
 
-      expect(result.length).toBe(2);
+      expect(result.role).toEqual('USER');
     });
   });
 
@@ -130,9 +122,7 @@ describe('AuthService', () => {
     request.user_agent = 'testing';
 
     it('should failed because wrong username', async () => {
-      await expect(authService.SignIn(request)).rejects.toThrow(
-        NotFoundException,
-      );
+      await expect(authService.SignIn(request)).rejects.toThrow(NotFoundException);
     });
   });
 
@@ -144,9 +134,7 @@ describe('AuthService', () => {
     request.user_agent = 'testing';
 
     it('should failed because wrong password', async () => {
-      await expect(authService.SignIn(request)).rejects.toThrow(
-        UnauthorizedException,
-      );
+      await expect(authService.SignIn(request)).rejects.toThrow(UnauthorizedException);
     });
   });
 

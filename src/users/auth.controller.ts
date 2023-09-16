@@ -1,15 +1,4 @@
-import {
-  Body,
-  Controller,
-  Get,
-  HttpCode,
-  HttpStatus,
-  Inject,
-  Ip,
-  Patch,
-  Post,
-  UseGuards,
-} from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Ip, Patch, Post, UseGuards } from '@nestjs/common';
 import { AUTH_SERVICES, AuthServices } from './auth.service';
 import { Serialize } from '../common/interceptors';
 import { UserDto } from './dto';
@@ -20,9 +9,7 @@ import { RefreshTokenGuard } from '../common/guards';
 
 @Controller('auth')
 export class AuthController {
-  constructor(
-    @Inject(AUTH_SERVICES) private readonly authService: AuthServices,
-  ) {}
+  constructor(@Inject(AUTH_SERVICES) private readonly authService: AuthServices) {}
 
   @Get('/whoami')
   @Serialize(UserDto)
@@ -33,18 +20,13 @@ export class AuthController {
   @Post('login')
   @HttpCode(HttpStatus.OK)
   @Public()
-  async login(
-    @Body() request: SigninRequest,
-    @Ip() ip_address: string,
-    @UserAgent() user_agent: string | undefined,
-  ) {
+  async login(@Body() request: SigninRequest, @Ip() ip_address: string, @UserAgent() user_agent: string | undefined) {
     request.ip_address = ip_address;
     request.user_agent = user_agent;
 
-    const [access_token, refresh_token] =
-      await this.authService.SignIn(request);
+    const response = await this.authService.SignIn(request);
 
-    return { access_token, refresh_token };
+    return { ...response };
   }
 
   @Patch('refresh')
@@ -56,8 +38,7 @@ export class AuthController {
     request.user_id = user['sub'];
     request.token = user['refresh_token'];
 
-    const [access_token, refresh_token] =
-      await this.authService.RefreshToken(request);
+    const [access_token, refresh_token] = await this.authService.RefreshToken(request);
 
     return { access_token, refresh_token };
   }

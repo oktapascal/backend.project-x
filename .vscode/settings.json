@@ -1,0 +1,87 @@
+{
+  "minify.css": {
+    "advanced": true,
+    "aggressiveMerging": true,
+    "compatibility": "*",
+    "inliner": {},
+    "keepBreaks": false,
+    "keepSpecialComments": "*",
+    "mediaMerging": true,
+    "processImport": true,
+    "processImportFrom": ["all"],
+    "rebase": true,
+    "restructuring": true,
+    "root": "${workspaceRoot}",
+    "roundingPrecision": 2,
+    "semanticMerging": false,
+    "shorthandCompacting": true
+  },
+  "minify.minifyExistingOnSave": true,
+  "json.validate.enable": false,
+  "workbench.editor.showTabs": false,
+  "editor.inlineSuggest.enabled": true,
+  "editor.minimap.enabled": false,
+  "editor.lineNumbers": "relative",
+  "workbench.startupEditor": "none",
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.formatOnSave": true,
+  "editor.colorDecorators": false,
+  "editor.acceptSuggestionOnCommitCharacter": false,
+  "explorer.compactFolders": false,
+  "workbench.colorTheme": "GitHub Dark Default",
+  "workbench.editor.untitled.hint": "hidden",
+  "workbench.activityBar.visible": true,
+  "[javascript]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "better-comments.tags": [
+    {
+      "tag": "!",
+      "color": "#FF2D00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "?",
+      "color": "#3498DB",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "//",
+      "color": "#474747",
+      "strikethrough": true,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "todo",
+      "color": "#FF8C00",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    },
+    {
+      "tag": "*",
+      "color": "#98C379",
+      "strikethrough": false,
+      "underline": false,
+      "backgroundColor": "transparent",
+      "bold": false,
+      "italic": false
+    }
+  ],
+  "prettier.singleQuote": true,
+  "prettier.printWidth": 600,
+  "editor.tabSize": 2
+}
