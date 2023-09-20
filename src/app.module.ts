@@ -1,16 +1,11 @@
-import {
-  BadRequestException,
-  MiddlewareConsumer,
-  Module,
-  ValidationError,
-  ValidationPipe,
-} from '@nestjs/common';
+import { BadRequestException, MiddlewareConsumer, Module, ValidationError, ValidationPipe } from '@nestjs/common';
 import { RequestLoggerMiddleware } from './common/middlewares';
 import { ConfigModule } from '@nestjs/config';
 import { APP_PIPE } from '@nestjs/core';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PgConfig } from './common/configs/database';
+import { ModulesModule } from './modules/modules.module';
 
 // noinspection JSUnresolvedReference
 @Module({
@@ -20,6 +15,7 @@ import { PgConfig } from './common/configs/database';
     }),
     TypeOrmModule.forRootAsync(PgConfig),
     UsersModule,
+    ModulesModule,
   ],
   controllers: [],
   providers: [
@@ -42,9 +38,6 @@ import { PgConfig } from './common/configs/database';
 export class AppModule {
   // noinspection JSUnusedGlobalSymbols
   configure(consumer: MiddlewareConsumer) {
-    consumer
-      .apply(RequestLoggerMiddleware)
-      .exclude('auth/refresh')
-      .forRoutes('*');
+    consumer.apply(RequestLoggerMiddleware).exclude('auth/refresh').forRoutes('*');
   }
 }
