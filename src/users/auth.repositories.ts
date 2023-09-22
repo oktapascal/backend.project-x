@@ -21,6 +21,6 @@ export class AuthRepositoriesImpl implements AuthRepositories {
       user_agent: session.user_agent,
     });
 
-    await manager.save(createSession);
+    manager.save(createSession);
   }
 }

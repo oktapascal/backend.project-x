@@ -45,12 +45,7 @@ export class UsersRepositoriesImpl implements UsersRepositories {
     return this.datasource
       .getRepository(User)
       .createQueryBuilder('users')
-      .innerJoinAndMapOne(
-        'users.profile',
-        'user_profiles',
-        'profile',
-        'users.user_id = profile.user_id',
-      )
+      .innerJoinAndMapOne('users.profile', 'user_profiles', 'profile', 'users.user_id = profile.user_id')
       .where('users.user_id = :user_id', { user_id })
       .andWhere('activated = true')
       .getOne();
@@ -60,23 +55,13 @@ export class UsersRepositoriesImpl implements UsersRepositories {
     return this.datasource
       .getRepository(User)
       .createQueryBuilder('users')
-      .innerJoinAndMapOne(
-        'users.profile',
-        'user_profiles',
-        'profile',
-        'users.user_id = profile.user_id',
-      )
+      .innerJoinAndMapOne('users.profile', 'user_profiles', 'profile', 'users.user_id = profile.user_id')
       .where('username = :username', { username })
       .andWhere('activated = true')
       .getOne();
   }
 
   async UpdateRefreshToken(user_id: string, token?: string): Promise<void> {
-    await this.datasource
-      .createQueryBuilder()
-      .update(User)
-      .set({ remember_token: token })
-      .where('user_id = :user_id', { user_id })
-      .execute();
+    this.datasource.createQueryBuilder().update(User).set({ remember_token: token }).where('user_id = :user_id', { user_id }).execute();
   }
 }
