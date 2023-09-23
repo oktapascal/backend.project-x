@@ -22,19 +22,13 @@ export class ModulesRepositoriesImpl implements ModulesRepositories {
   constructor(@InjectDataSource() private readonly datasource: DataSource) {}
 
   async UpdateModule(module: ModulesDto): Promise<Modules> {
-    const exec = await this.datasource
-      .createQueryBuilder()
-      .update(Modules)
-      .set({ name: module.name, module_icon: module.module_icon })
-      .where('module_id = :module_id', { module_id: module.module_id })
-      .returning('module_id, name, module_icon')
-      .execute();
+    await this.datasource.createQueryBuilder().update(Modules).set({ name: module.name, module_icon: module.module_icon }).where('module_id = :module_id', { module_id: module.module_id }).execute();
 
-    return exec.raw;
+    return this.datasource.getRepository(Modules).createQueryBuilder().where('module_id = :module_id', { module_id: module.module_id }).getOne();
   }
 
   async CreateModule(module: ModulesDto): Promise<Modules> {
-    const exec = await this.datasource
+    await this.datasource
       .createQueryBuilder()
       .insert()
       .into(Modules)
@@ -44,10 +38,9 @@ export class ModulesRepositoriesImpl implements ModulesRepositories {
         module_icon: module.module_icon,
         status_active: true,
       })
-      .returning('module_id, name, module_icon')
       .execute();
 
-    return exec.raw;
+    return this.datasource.getRepository(Modules).createQueryBuilder().where('module_id = :module_id', { module_id: module.module_id }).getOne();
   }
 
   GetLastModuleId(): Promise<Modules> {
