@@ -26,7 +26,7 @@ export class UsersRepositoriesImpl implements UsersRepositories {
         user_id: user.user_id,
         username: user.username,
         password: user.password,
-        role: user.role,
+        role_id: user.role,
         activated: true,
       });
 

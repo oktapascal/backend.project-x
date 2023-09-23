@@ -80,7 +80,7 @@ export class AuthServicesImpl implements AuthServices {
 
     await this.authRepositories.CreateAuthSession(dto);
 
-    return { role: user.role, access_token: accessToken, refresh_token: refreshToken };
+    return { role: user.role_id, access_token: accessToken, refresh_token: refreshToken };
   }
 
   SignOut(user_id: string): Promise<void> {

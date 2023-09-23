@@ -19,7 +19,7 @@ export class User {
   remember_token: string;
 
   @Column({ nullable: true })
-  role: string;
+  role_id: string;
 
   @Column({ nullable: true })
   activated: boolean;

@@ -2,6 +2,7 @@ import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { AuthSessionDto } from './dto';
 import { AuthSession } from './entities';
+import { Injectable } from '@nestjs/common';
 
 export const AUTH_REPOSITORIES = 'AuthRepositories';
 
@@ -9,6 +10,7 @@ export interface AuthRepositories {
   CreateAuthSession(session: AuthSessionDto): Promise<void>;
 }
 
+@Injectable()
 export class AuthRepositoriesImpl implements AuthRepositories {
   constructor(@InjectDataSource() private readonly datasource: DataSource) {}
 

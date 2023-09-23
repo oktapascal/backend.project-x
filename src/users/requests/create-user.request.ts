@@ -1,5 +1,4 @@
-import { IsEnum, IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
-import { Roles } from '../../common/enums';
+import { IsNotEmpty, IsOptional, MaxLength } from 'class-validator';
 
 export class CreateUserRequest {
   @IsNotEmpty({ message: 'Username wajib diisi' })
@@ -11,7 +10,6 @@ export class CreateUserRequest {
   password: string;
 
   @IsNotEmpty({ message: 'Role wajib diisi' })
-  @IsEnum(Roles, { message: 'Role tidak valid' })
   role: string;
 
   @IsNotEmpty({ message: 'Nama lengkap wajib diisi' })

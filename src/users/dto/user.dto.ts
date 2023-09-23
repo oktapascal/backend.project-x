@@ -2,7 +2,6 @@ import { Expose, Type } from 'class-transformer';
 import { UserProfileDto } from './user-profile.dto';
 
 export class UserDto {
-  @Expose()
   id?: number;
 
   @Expose()

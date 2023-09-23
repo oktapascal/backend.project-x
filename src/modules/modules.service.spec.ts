@@ -85,4 +85,12 @@ describe('ModulesService', () => {
       await expect(moduleService.DeleteModule('MDL.002')).rejects.toThrow(NotFoundException);
     });
   });
+
+  // describe('GetModulesByUser', () => {
+  //   it('should received modules by user login', async () => {
+  //     const result = await moduleService.GetModulesByUser('USR.00001');
+
+  //     expect(result.length).toBeGreaterThan(1);
+  //   });
+  // });
 });
