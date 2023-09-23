@@ -8,7 +8,6 @@ export const MODULES_SERVICES = 'ModulesServices';
 
 export interface ModulesServices {
   GetModulesByUser(user_id: string): Promise<Modules[]>;
-  GenerateModuleId(): Promise<Modules>;
   SaveModule(module: CreateModuleRequest): Promise<Modules>;
   UpdateModule(module: UpdateModuleRequest): Promise<Modules>;
   DeleteModule(module_id: string): Promise<void>;
@@ -18,7 +17,7 @@ export interface ModulesServices {
 export class ModulesServicesImpl implements ModulesServices {
   constructor(@Inject(MODULES_REPOSITORIES) private readonly modulesRepositories: ModulesRepositories) {}
 
-  private async NewModuleId() {
+  private async NewModuleId(): Promise<string> {
     const result = await this.GenerateModuleId();
 
     if (!result) return 'MDL.001';
@@ -35,7 +34,7 @@ export class ModulesServicesImpl implements ModulesServices {
     if (length === 3) return `${prefix}.${newNumber}`;
   }
 
-  GenerateModuleId(): Promise<Modules> {
+  private GenerateModuleId(): Promise<Modules> {
     return this.modulesRepositories.GetLastModuleId();
   }
 

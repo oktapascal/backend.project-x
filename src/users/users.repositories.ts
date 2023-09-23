@@ -9,6 +9,7 @@ export const USERS_REPOSITORIES = 'UsersRepositories';
 export interface UsersRepositories {
   GetUserByUsername(username: string): Promise<User>;
   GetUserById(user_id: string): Promise<User>;
+  GetLastUserId(): Promise<User>;
   CreateUser(user: UserDto, profile: UserProfileDto): Promise<User>;
   UpdateRefreshToken(user_id: string, token?: string): Promise<void>;
 }
@@ -63,5 +64,9 @@ export class UsersRepositoriesImpl implements UsersRepositories {
 
   async UpdateRefreshToken(user_id: string, token?: string): Promise<void> {
     this.datasource.createQueryBuilder().update(User).set({ remember_token: token }).where('user_id = :user_id', { user_id }).execute();
+  }
+
+  GetLastUserId(): Promise<User> {
+    return this.datasource.getRepository(User).createQueryBuilder().orderBy('id', 'DESC').getOne();
   }
 }
