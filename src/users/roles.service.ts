@@ -1,4 +1,4 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Roles } from './entities';
 import { CreateRoleRequest, UpdateRoleRequest } from './requests';
 import { ROLES_REPOSITORIES, RolesRepositoriesImpl } from './roles.repositories';
@@ -62,7 +62,11 @@ export class RolesServiceImpl implements RolesServices {
     return this.roleRepositories.Save(dto);
   }
 
-  Update(role_id: string, role: UpdateRoleRequest): Promise<Roles> {
+  async Update(role_id: string, role: UpdateRoleRequest): Promise<Roles> {
+    const _role = await this.roleRepositories.GetOne(role_id);
+
+    if (!_role) throw new NotFoundException([{ field: 'id', error: 'id role tidak ditemukan' }]);
+
     const dto = new RolesDto();
     dto.name = role.name;
     dto.flag_read = role.flag_read;
@@ -73,7 +77,11 @@ export class RolesServiceImpl implements RolesServices {
     return this.roleRepositories.Update(role_id, dto);
   }
 
-  Delete(role_id: string): Promise<void> {
+  async Delete(role_id: string): Promise<void> {
+    const _role = await this.roleRepositories.GetOne(role_id);
+
+    if (!_role) throw new NotFoundException([{ field: 'id', error: 'id role tidak ditemukan' }]);
+
     return this.roleRepositories.Delete(role_id);
   }
 }
