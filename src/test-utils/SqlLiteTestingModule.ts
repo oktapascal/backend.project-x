@@ -1,14 +1,14 @@
 import { AuthSession, Roles, User, UserProfile } from '../users/entities';
 import { DataSource } from 'typeorm';
 import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { Modules, ModulesMenu, ModulesUser } from '../modules/entities';
+import { Modules, ModulesMenu, ModulesRole } from '../modules/entities';
 
 export const SqlLiteDatasource: TypeOrmModuleAsyncOptions = {
   useFactory: (): TypeOrmModuleOptions => ({
     type: 'better-sqlite3',
     database: 'db.sqlite',
     dropSchema: true,
-    entities: [User, UserProfile, AuthSession, Modules, ModulesUser, ModulesMenu, Roles],
+    entities: [User, UserProfile, AuthSession, Modules, ModulesRole, ModulesMenu, Roles],
     synchronize: true,
   }),
   dataSourceFactory: async (options) => {

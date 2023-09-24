@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('user_modules')
-export class ModulesUser {
+@Entity('role_modules')
+export class ModulesRole {
   @PrimaryGeneratedColumn('identity', { generatedIdentity: 'ALWAYS' })
   id: number;
 
@@ -9,7 +9,7 @@ export class ModulesUser {
   module_id: number;
 
   @Column({ nullable: true })
-  user_id: string;
+  role_id: string;
 
   @Column({ nullable: true })
   status_active: boolean;

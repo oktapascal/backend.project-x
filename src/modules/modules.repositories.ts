@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
-import { Modules } from './entities';
+import { Modules, ModulesRole } from './entities';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { ModulesUser } from './entities/modules-user.entity';
 import { ModulesDto } from './dto';
+import { User } from '../users/entities';
 
 export const MODULES_REPOSITORIES = 'ModulesRepositories';
 
@@ -59,10 +59,11 @@ export class ModulesRepositoriesImpl implements ModulesRepositories {
     return this.datasource
       .getRepository(Modules)
       .createQueryBuilder('modules')
-      .innerJoin(ModulesUser, 'modules_user', 'modules.id = modules_user.module_id')
-      .where('modules_user.user_id = :user_id', { user_id })
+      .innerJoin(ModulesRole, 'modules_role', 'modules.module_id = modules_role.module_id')
+      .innerJoin(User, 'users', 'users.role_id = modules_role.role_id')
+      .where('users.user_id = :user_id', { user_id })
       .andWhere('modules.status_active = true')
-      .andWhere('modules_user.status_active = true')
+      .andWhere('modules_role.status_active = true')
       .orderBy('modules.id', 'ASC')
       .getMany();
   }
