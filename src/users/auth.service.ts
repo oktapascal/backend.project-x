@@ -33,21 +33,19 @@ export class AuthServicesImpl implements AuthServices {
   }
 
   async RefreshToken(auth: RefreshTokenRequest): Promise<string[]> {
-    const user = await this.userServices.GetUserById(auth.user_id);
+    const token = await this.authRepositories.GetRefreshToken(auth.user_id);
 
-    if (!user) throw new ForbiddenException('Access Denied');
+    if (!token) throw new ForbiddenException('Access Denied');
 
-    if (user.remember_token === null) throw new ForbiddenException('Access Denied');
-
-    const isVerified = await verify(user.remember_token, auth.token);
+    const isVerified = await verify(token, auth.token);
 
     if (!isVerified) throw new ForbiddenException('Access Denied');
 
-    const accessToken = await this.tokenmanagerServices.NewAccessToken(user.user_id);
+    const accessToken = await this.tokenmanagerServices.NewAccessToken(auth.user_id);
 
-    const refreshToken = await this.tokenmanagerServices.NewRefreshToken(user.user_id);
+    const refreshToken = await this.tokenmanagerServices.NewRefreshToken(auth.user_id);
 
-    await this.userServices.UpdateRefreshToken(auth.user_id, refreshToken);
+    await this.authRepositories.SaveRefreshToken(auth.user_id, refreshToken);
 
     return [accessToken, refreshToken];
   }
@@ -71,7 +69,7 @@ export class AuthServicesImpl implements AuthServices {
 
     const refreshToken = await this.tokenmanagerServices.NewRefreshToken(user.user_id);
 
-    await this.userServices.UpdateRefreshToken(user.user_id, refreshToken);
+    await this.authRepositories.SaveRefreshToken(user.user_id, refreshToken);
 
     const dto = new AuthSessionDto();
     dto.user_agent = auth.user_agent;
@@ -84,6 +82,6 @@ export class AuthServicesImpl implements AuthServices {
   }
 
   SignOut(user_id: string): Promise<void> {
-    return this.userServices.UpdateRefreshToken(user_id, null);
+    return this.authRepositories.DeleteRefreshToken(user_id);
   }
 }

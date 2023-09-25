@@ -11,7 +11,6 @@ export interface UsersServices {
   GetUserByUsername(username: string): Promise<User>;
   GetUserById(user_id: string): Promise<User>;
   SaveUser(user: CreateUserRequest): Promise<User>;
-  UpdateRefreshToken(user_id: string, token?: string): Promise<void>;
 }
 
 @Injectable()
@@ -79,13 +78,5 @@ export class UsersServiceImpl implements UsersServices {
     dtoProfile.email = user.email;
 
     return this.userRepository.CreateUser(dtoUser, dtoProfile);
-  }
-
-  async UpdateRefreshToken(user_id: string, token?: string): Promise<void> {
-    if (token !== null) {
-      token = await hashing(token);
-    }
-
-    return this.userRepository.UpdateRefreshToken(user_id, token);
   }
 }

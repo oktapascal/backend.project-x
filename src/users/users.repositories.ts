@@ -11,7 +11,6 @@ export interface UsersRepositories {
   GetUserById(user_id: string): Promise<User>;
   GetLastUserId(): Promise<User>;
   CreateUser(user: UserDto, profile: UserProfileDto): Promise<User>;
-  UpdateRefreshToken(user_id: string, token?: string): Promise<void>;
 }
 
 @Injectable()
@@ -60,10 +59,6 @@ export class UsersRepositoriesImpl implements UsersRepositories {
       .where('username = :username', { username })
       .andWhere('activated = true')
       .getOne();
-  }
-
-  async UpdateRefreshToken(user_id: string, token?: string): Promise<void> {
-    this.datasource.createQueryBuilder().update(User).set({ remember_token: token }).where('user_id = :user_id', { user_id }).execute();
   }
 
   GetLastUserId(): Promise<User> {

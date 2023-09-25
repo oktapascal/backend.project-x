@@ -1,9 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { USERS_SERVICES, UsersServiceImpl } from './users.service';
-import {
-  UsersRepositoriesImpl,
-  USERS_REPOSITORIES,
-} from './users.repositories';
+import { UsersRepositoriesImpl, USERS_REPOSITORIES } from './users.repositories';
 import { SqlLiteDatasource } from '../test-utils/SqlLiteTestingModule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CreateUserRequest } from './requests';
@@ -92,16 +89,6 @@ describe('UsersService', () => {
 
       expect(service.GetUserById('usr-002')).resolves.toBe(null);
       expect(repospy).toBeCalledWith('usr-002');
-    });
-  });
-
-  describe('UpdateRefreshToken', () => {
-    it('should update refresh token', async () => {
-      const repospy = jest.spyOn(repo, 'UpdateRefreshToken');
-
-      await service.UpdateRefreshToken(user_id, null);
-
-      expect(repospy).toBeCalledWith(user_id, null);
     });
   });
 });

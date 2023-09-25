@@ -8,8 +8,10 @@ import { UsersRepositoriesImpl, USERS_REPOSITORIES } from './users.repositories'
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SqlLiteDatasource } from '../test-utils/SqlLiteTestingModule';
 import { AUTH_SERVICES, AuthServicesImpl } from './auth.service';
-import { CreateUserRequest, SigninRequest } from './requests';
+import { CreateUserRequest, RefreshTokenRequest, SigninRequest } from './requests';
 import { NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { CacheModule } from '@nestjs/cache-manager';
+import { RedisConfig } from '../common/configs/database';
 
 describe('AuthService', () => {
   let authService: AuthServicesImpl;
@@ -19,6 +21,7 @@ describe('AuthService', () => {
   let userRepo: UsersRepositoriesImpl;
   let request: CreateUserRequest;
   let user_id: string;
+  let refresh_token: string;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -28,6 +31,7 @@ describe('AuthService', () => {
         ConfigModule.forRoot({
           envFilePath: '.env.dev',
         }),
+        CacheModule.registerAsync(RedisConfig),
       ],
       providers: [
         {
@@ -110,6 +114,8 @@ describe('AuthService', () => {
     it('should generate access & refresh token', async () => {
       const result = await authService.SignIn(request);
 
+      refresh_token = result.refresh_token;
+
       expect(result.role).toEqual('USER');
     });
   });
@@ -138,13 +144,27 @@ describe('AuthService', () => {
     });
   });
 
+  describe('UpdateRefreshToken', () => {
+    it('should update refresh token', async () => {
+      const repospy = jest.spyOn(authRepo, 'SaveRefreshToken');
+
+      const request = new RefreshTokenRequest();
+      request.user_id = 'USR.00001';
+      request.token = refresh_token;
+
+      await authService.RefreshToken(request);
+
+      expect(repospy).toHaveBeenCalled();
+    });
+  });
+
   describe('SignOut', () => {
     it('should sign out and update refresh token', async () => {
-      const repospy = jest.spyOn(userRepo, 'UpdateRefreshToken');
+      const repospy = jest.spyOn(authRepo, 'DeleteRefreshToken');
 
       await authService.SignOut(user_id);
 
-      expect(repospy).toBeCalledWith(user_id, null);
+      expect(repospy).toBeCalledWith(user_id);
     });
   });
 });
