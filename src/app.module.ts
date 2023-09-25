@@ -4,9 +4,10 @@ import { ConfigModule } from '@nestjs/config';
 import { APP_PIPE } from '@nestjs/core';
 import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { PgConfig } from './common/configs/database';
+import { PgConfig, RedisConfig } from './common/configs/database';
 import { ModulesModule } from './modules/modules.module';
 import { errorConverter } from './common/helpers';
+import { CacheModule } from '@nestjs/cache-manager';
 
 // noinspection JSUnresolvedReference
 @Module({
@@ -15,6 +16,7 @@ import { errorConverter } from './common/helpers';
       envFilePath: `.env.${process.env.NODE_ENV}`,
     }),
     TypeOrmModule.forRootAsync(PgConfig),
+    CacheModule.registerAsync(RedisConfig),
     UsersModule,
     ModulesModule,
   ],
