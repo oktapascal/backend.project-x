@@ -6,6 +6,7 @@ import { UsersModule } from './users/users.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { PgConfig } from './common/configs/database';
 import { ModulesModule } from './modules/modules.module';
+import { errorConverter } from './common/helpers';
 
 // noinspection JSUnresolvedReference
 @Module({
@@ -23,13 +24,10 @@ import { ModulesModule } from './modules/modules.module';
       provide: APP_PIPE,
       useValue: new ValidationPipe({
         whitelist: true,
+        transform: true,
         exceptionFactory: (validationErrors: ValidationError[]) => {
-          return new BadRequestException(
-            validationErrors.map((error: ValidationError) => ({
-              field: error.property,
-              error: Object.values(error.constraints).join(', '),
-            })),
-          );
+          const errors = errorConverter(validationErrors);
+          return new BadRequestException([errors]);
         },
       }),
     },
