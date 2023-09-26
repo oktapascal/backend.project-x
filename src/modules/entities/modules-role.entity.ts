@@ -6,7 +6,7 @@ export class ModulesRole {
   id: number;
 
   @Column({ nullable: true })
-  module_id: number;
+  module_id: string;
 
   @Column({ nullable: true })
   role_id: string;

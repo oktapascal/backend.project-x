@@ -2,7 +2,6 @@ import { Test, TestingModule } from '@nestjs/testing';
 import { MODULES_SERVICES, ModulesServicesImpl } from './modules.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SqlLiteDatasource } from '../test-utils/SqlLiteTestingModule';
-import { ConfigModule } from '@nestjs/config';
 import { MODULES_REPOSITORIES, ModulesRepositoriesImpl } from './modules.repositories';
 import { CreateModuleRequest, UpdateModuleRequest } from './request';
 import { NotFoundException } from '@nestjs/common';
@@ -13,7 +12,7 @@ describe('ModulesService', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forRootAsync(SqlLiteDatasource), ConfigModule.forRoot({ envFilePath: '.env.dev' })],
+      imports: [TypeOrmModule.forRootAsync(SqlLiteDatasource)],
       providers: [
         {
           provide: MODULES_REPOSITORIES,
@@ -85,12 +84,4 @@ describe('ModulesService', () => {
       await expect(moduleService.DeleteModule('MDL.002')).rejects.toThrow(NotFoundException);
     });
   });
-
-  // describe('GetModulesByUser', () => {
-  //   it('should received modules by user login', async () => {
-  //     const result = await moduleService.GetModulesByUser('USR.00001');
-
-  //     expect(result.length).toBeGreaterThan(1);
-  //   });
-  // });
 });
