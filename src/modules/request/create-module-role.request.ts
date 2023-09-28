@@ -1,5 +1,5 @@
 import { Type } from 'class-transformer';
-import { ArrayNotEmpty, IsDefined, IsNotEmpty, ValidateNested } from 'class-validator';
+import { ArrayNotEmpty, IsArray, IsDefined, IsNotEmpty, ValidateNested } from 'class-validator';
 import { ToBoolean } from '../../common/decorators';
 
 class ModuleDto {
@@ -17,6 +17,7 @@ export class CreateModuleRoleRequest {
 
   @ArrayNotEmpty()
   @IsDefined()
+  @IsArray()
   @Type(() => ModuleDto)
   @ValidateNested({ each: true })
   modules: ModuleDto[];

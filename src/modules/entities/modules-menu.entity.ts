@@ -19,4 +19,7 @@ export class ModulesMenu {
 
   @Column({ nullable: true })
   status_active: boolean;
+
+  @Column({ nullable: true })
+  level: number;
 }

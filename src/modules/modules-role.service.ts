@@ -14,16 +14,14 @@ export class ModulesRoleServiceImpl implements ModulesRoleService {
   constructor(@Inject(MODULES_ROLE_REPOSITORIES) private readonly repositories: ModulesRoleRepositories) {}
 
   SaveModulesRole(modules: CreateModuleRoleRequest): Promise<void> {
-    const dto: ModulesRoleDto[] = [];
-
-    for (let i = 0; i < modules.modules.length; i++) {
+    const dto = modules.modules.map((module) => {
       const _dto = new ModulesRoleDto();
-      _dto.module_id = modules.modules[i].module_id;
-      _dto.status_active = modules.modules[i].status_active;
+      _dto.module_id = module.module_id;
+      _dto.status_active = module.status_active;
       _dto.role_id = modules.role_id;
 
-      dto.push(_dto);
-    }
+      return _dto;
+    });
 
     return this.repositories.Save(modules.role_id, dto);
   }

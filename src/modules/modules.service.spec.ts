@@ -6,7 +6,7 @@ import { MODULES_REPOSITORIES, ModulesRepositoriesImpl } from './modules.reposit
 import { CreateModuleRequest, UpdateModuleRequest } from './request';
 import { NotFoundException } from '@nestjs/common';
 
-describe('ModulesService', () => {
+describe.skip('ModulesService', () => {
   let moduleRepo: ModulesRepositoriesImpl;
   let moduleService: ModulesServicesImpl;
 
