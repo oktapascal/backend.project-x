@@ -82,6 +82,6 @@
     }
   ],
   "prettier.singleQuote": true,
-  "prettier.printWidth": 600,
+  "prettier.printWidth": 180,
   "editor.tabSize": 2
 }

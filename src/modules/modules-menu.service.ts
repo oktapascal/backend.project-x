@@ -6,6 +6,7 @@ import { ModulesMenuDto } from './dto';
 export const MODULES_MENU_SERVICES = 'ModulesMenuServices';
 
 export interface ModulesMenuServices {
+  GetModuleMenus(module_id: string): Promise<ModulesMenuDto[]>;
   SaveModulesMenu(menus: CreateModuleMenuRequest): Promise<void>;
 }
 
@@ -45,5 +46,33 @@ export class ModulesMenuServicesImpl implements ModulesMenuServices {
       .flat();
 
     this.repositories.Save(menus.module_id, dto);
+  }
+
+  async GetModuleMenus(module_id: string): Promise<ModulesMenuDto[]> {
+    const result = await this.repositories.Get(module_id);
+
+    const menus: ModulesMenuDto[] = result.reduce((value, currentItem) => {
+      if (currentItem.level === 0) {
+        const parent = {
+          serial_number: currentItem.serial_number,
+          name: currentItem.name,
+          path_url: currentItem.path_url,
+          children: [],
+        };
+        value.push(parent);
+      } else {
+        const indexParent = value.length - 1;
+        const children = {
+          serial_number: currentItem.serial_number,
+          name: currentItem.name,
+          path_url: currentItem.path_url,
+        };
+        value[indexParent].children.push(children);
+      }
+
+      return value;
+    }, [] as ModulesMenuDto[]);
+
+    return menus;
   }
 }

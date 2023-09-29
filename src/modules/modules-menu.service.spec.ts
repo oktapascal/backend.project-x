@@ -85,4 +85,12 @@ describe('ModulesMenuService', () => {
       expect(repospy).toHaveBeenCalled();
     });
   });
+
+  describe('GetModuleMenus', () => {
+    it('should get all menus based module id', async () => {
+      const result = await service.GetModuleMenus('MDL.001');
+
+      expect(result.length).toBeGreaterThan(1);
+    });
+  });
 });
