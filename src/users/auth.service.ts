@@ -77,6 +77,12 @@ export class AuthServicesImpl implements AuthServices {
 
     await this.authRepositories.CreateAuthSession(dto);
 
+    delete user.id;
+    delete user.password;
+    delete user.created_at;
+    delete user.activated;
+    delete user.role_id;
+
     return { access_token: accessToken, refresh_token: refreshToken, user };
   }
 
