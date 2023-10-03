@@ -1,19 +1,19 @@
-import {Expose} from "class-transformer";
+import { Expose } from 'class-transformer';
 
 export class UserProfileDto {
-    user_id?: string;
+  user_id?: string;
 
-    @Expose()
-    full_name: string;
+  @Expose()
+  full_name: string;
 
-    @Expose()
-    email?: string;
+  @Expose()
+  email?: string;
 
-    @Expose()
-    phone_number?: string;
+  @Expose()
+  phone_number?: string;
 
-    @Expose()
-    photo?: string;
+  @Expose()
+  photo?: string;
 
-    updated_at?: Date;
+  updated_at?: Date;
 }

@@ -12,9 +12,12 @@ export class AuthController {
   constructor(@Inject(AUTH_SERVICES) private readonly authService: AuthServices) {}
 
   @Get('/whoami')
+  @HttpCode(HttpStatus.OK)
   @Serialize(UserDto)
-  whoami(@CurrentUser() user: Express.User) {
-    return this.authService.GetCredentialData(user['sub']);
+  async whoami(@CurrentUser() user: Express.User) {
+    const response = await this.authService.GetCredentialData(user['sub']);
+
+    return { ...response };
   }
 
   @Post('login')

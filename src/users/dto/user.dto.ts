@@ -1,5 +1,6 @@
 import { Expose, Type } from 'class-transformer';
 import { UserProfileDto } from './user-profile.dto';
+import { RolesDto } from './roles.dto';
 
 export class UserDto {
   id?: number;
@@ -13,7 +14,7 @@ export class UserDto {
   password: string;
 
   @Expose()
-  role: string;
+  role_id: string;
 
   @Expose()
   activated?: boolean;
@@ -23,4 +24,8 @@ export class UserDto {
   @Expose()
   @Type(() => UserProfileDto)
   profile: UserProfileDto;
+
+  @Expose()
+  @Type(() => RolesDto)
+  role: RolesDto;
 }

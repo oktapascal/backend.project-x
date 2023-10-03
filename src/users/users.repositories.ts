@@ -25,7 +25,7 @@ export class UsersRepositoriesImpl implements UsersRepositories {
         user_id: user.user_id,
         username: user.username,
         password: user.password,
-        role_id: user.role,
+        role_id: user.role_id,
         activated: true,
       });
 
@@ -46,6 +46,7 @@ export class UsersRepositoriesImpl implements UsersRepositories {
       .getRepository(User)
       .createQueryBuilder('users')
       .innerJoinAndMapOne('users.profile', 'user_profiles', 'profile', 'users.user_id = profile.user_id')
+      .innerJoinAndMapOne('users.role', 'roles', 'role', 'users.role_id = role.role_id')
       .where('users.user_id = :user_id', { user_id })
       .andWhere('activated = true')
       .getOne();

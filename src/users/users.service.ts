@@ -68,7 +68,7 @@ export class UsersServiceImpl implements UsersServices {
     dtoUser.user_id = id;
     dtoUser.username = user.username;
     dtoUser.password = await hashing(user.password);
-    dtoUser.role = user.role;
+    dtoUser.role_id = user.role;
     dtoUser.activated = true;
 
     const dtoProfile = new UserProfileDto();
