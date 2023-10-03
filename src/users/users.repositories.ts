@@ -57,6 +57,7 @@ export class UsersRepositoriesImpl implements UsersRepositories {
       .getRepository(User)
       .createQueryBuilder('users')
       .innerJoinAndMapOne('users.profile', 'user_profiles', 'profile', 'users.user_id = profile.user_id')
+      .innerJoinAndMapOne('users.role', 'roles', 'role', 'users.role_id = role.role_id')
       .where('username = :username', { username })
       .andWhere('activated = true')
       .getOne();
