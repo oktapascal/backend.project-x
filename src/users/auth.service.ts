@@ -53,15 +53,14 @@ export class AuthServicesImpl implements AuthServices {
   async SignIn(auth: SigninRequest): Promise<SessionPayload> {
     const user = await this.userServices.GetUserByUsername(auth.username);
 
-    if (!user) throw new NotFoundException([{ field: 'username', error: 'user tidak ditemukan' }]);
+    if (!user) throw new NotFoundException([{ username: 'user tidak ditemukan' }]);
 
     const isVerified = await verify(user.password, auth.password);
 
     if (!isVerified)
       throw new UnauthorizedException([
         {
-          field: 'password',
-          error: 'password tidak sesuai dengan credential anda',
+          password: 'password tidak sesuai dengan credential anda',
         },
       ]);
 
