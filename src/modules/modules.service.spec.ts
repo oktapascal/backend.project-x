@@ -6,7 +6,7 @@ import { MODULES_REPOSITORIES, ModulesRepositoriesImpl } from './modules.reposit
 import { CreateModuleRequest, UpdateModuleRequest } from './request';
 import { NotFoundException } from '@nestjs/common';
 
-describe.skip('ModulesService', () => {
+describe('ModulesService', () => {
   let moduleRepo: ModulesRepositoriesImpl;
   let moduleService: ModulesServicesImpl;
 
@@ -41,6 +41,7 @@ describe.skip('ModulesService', () => {
     const request = new CreateModuleRequest();
     request.name = 'Testing module';
     request.icon = 'icon';
+    request.default_view = '/default';
 
     it('should save module data', async () => {
       const result = await moduleService.SaveModule(request);
@@ -55,6 +56,7 @@ describe.skip('ModulesService', () => {
       request.id = 'MDL.001';
       request.name = 'Testing module update';
       request.icon = 'icon';
+      request.default_view = '/default-update';
 
       const result = await moduleService.UpdateModule(request);
 
@@ -66,6 +68,7 @@ describe.skip('ModulesService', () => {
       request.id = 'MDL.002';
       request.name = 'Testing module update';
       request.icon = 'icon';
+      request.default_view = '/default-update';
 
       await expect(moduleService.UpdateModule(request)).rejects.toThrow(NotFoundException);
     });

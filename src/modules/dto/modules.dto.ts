@@ -9,4 +9,7 @@ export class ModulesDto {
 
   @Expose()
   module_icon: string;
+
+  @Expose()
+  default_view: string;
 }

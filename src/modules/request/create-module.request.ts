@@ -8,4 +8,8 @@ export class CreateModuleRequest {
   @IsNotEmpty({ message: 'Icon modul wajib diisi' })
   @MaxLength(25, { message: 'Nama modul maksimal $constraint1 karakter' })
   icon: string;
+
+  @IsNotEmpty({ message: 'Default view wajib diisi' })
+  @MaxLength(50, { message: 'Default view maksimal $constraint1 karakter' })
+  default_view: string;
 }

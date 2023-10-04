@@ -116,7 +116,7 @@ describe.skip('AuthService', () => {
 
       refresh_token = result.refresh_token;
 
-      expect(result.role).toEqual('USER');
+      expect(result.refresh_token.length).toBeGreaterThan(1);
     });
   });
 

@@ -49,6 +49,7 @@ export class ModulesServicesImpl implements ModulesServices {
     dto.module_id = id;
     dto.name = module.name;
     dto.module_icon = module.icon;
+    dto.default_view = module.default_view;
 
     return this.modulesRepositories.CreateModule(dto);
   }
@@ -62,6 +63,7 @@ export class ModulesServicesImpl implements ModulesServices {
     dto.module_id = module.id;
     dto.name = module.name;
     dto.module_icon = module.icon;
+    dto.default_view = module.default_view;
 
     return this.modulesRepositories.UpdateModule(dto);
   }

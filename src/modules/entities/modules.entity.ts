@@ -16,4 +16,7 @@ export class Modules {
 
   @Column({ nullable: true })
   module_icon: string;
+
+  @Column({ nullable: true })
+  default_view: string;
 }

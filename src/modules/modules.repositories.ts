@@ -36,6 +36,7 @@ export class ModulesRepositoriesImpl implements ModulesRepositories {
         module_id: module.module_id,
         name: module.name,
         module_icon: module.module_icon,
+        default_view: module.default_view,
         status_active: true,
       })
       .execute();
