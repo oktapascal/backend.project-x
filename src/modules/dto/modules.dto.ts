@@ -11,5 +11,5 @@ export class ModulesDto {
   module_icon: string;
 
   @Expose()
-  default_view: string;
+  default_view?: string;
 }
