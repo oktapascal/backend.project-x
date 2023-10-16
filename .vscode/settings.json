@@ -83,5 +83,6 @@
   ],
   "prettier.singleQuote": true,
   "prettier.printWidth": 180,
-  "editor.tabSize": 2
+  "editor.tabSize": 2,
+  "workbench.editor.empty.hint": "hidden"
 }
