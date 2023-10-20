@@ -3,7 +3,7 @@ import { TOKEN_MANAGER_SERVICES, TokenManagerServicesImpl } from './token-manage
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
 
-describe.skip('TokenManagerServices', () => {
+describe('TokenManagerServices', () => {
   let service: TokenManagerServicesImpl;
 
   beforeEach(async () => {

@@ -9,17 +9,21 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SqlLiteDatasource } from '../test-utils/SqlLiteTestingModule';
 import { AUTH_SERVICES, AuthServicesImpl } from './auth.service';
 import { CreateUserRequest, RefreshTokenRequest, SigninRequest } from './requests';
-import { NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { CacheModule } from '@nestjs/cache-manager';
 import { RedisConfig } from '../common/configs/database';
+import { ROLES_REPOSITORIES, RolesRepositoriesImpl } from './roles.repositories';
+import { RolesDto } from './dto';
 
-describe.skip('AuthService', () => {
+describe('AuthService', () => {
   let authService: AuthServicesImpl;
   let usersService: UsersServiceImpl;
   let tokenmanagerService: TokenManagerServicesImpl;
   let authRepo: AuthRepositoriesImpl;
   let userRepo: UsersRepositoriesImpl;
-  let request: CreateUserRequest;
+  let requestCreateUser: CreateUserRequest;
+  let repoRole: RolesRepositoriesImpl;
+  let dtoRole: RolesDto;
   let user_id: string;
   let refresh_token: string;
 
@@ -54,6 +58,10 @@ describe.skip('AuthService', () => {
           provide: USERS_REPOSITORIES,
           useClass: UsersRepositoriesImpl,
         },
+        {
+          provide: ROLES_REPOSITORIES,
+          useClass: RolesRepositoriesImpl,
+        },
       ],
     }).compile();
 
@@ -62,14 +70,25 @@ describe.skip('AuthService', () => {
     tokenmanagerService = module.get<TokenManagerServicesImpl>(TOKEN_MANAGER_SERVICES);
     authRepo = module.get<AuthRepositoriesImpl>(AUTH_REPOSITORIES);
     userRepo = module.get<UsersRepositoriesImpl>(USERS_REPOSITORIES);
+    repoRole = module.get<RolesRepositoriesImpl>(ROLES_REPOSITORIES);
 
-    request = new CreateUserRequest();
-    request.username = 'foo';
-    request.password = 'bar';
-    request.full_name = 'foo bar';
-    request.role = 'USER';
+    dtoRole = new RolesDto();
+    dtoRole.role_id = 'ROL.001';
+    dtoRole.name = 'Test role';
+    dtoRole.flag_read = true;
+    dtoRole.flag_insert = true;
+    dtoRole.flag_update = true;
+    dtoRole.flag_delete = true;
 
-    const result = await usersService.SaveUser(request);
+    await repoRole.Save(dtoRole);
+
+    requestCreateUser = new CreateUserRequest();
+    requestCreateUser.username = 'foo';
+    requestCreateUser.password = 'bar';
+    requestCreateUser.full_name = 'foo bar';
+    requestCreateUser.role = 'ROL.001';
+
+    const result = await usersService.SaveUser(requestCreateUser);
     user_id = result.user_id;
   });
 
@@ -140,7 +159,7 @@ describe.skip('AuthService', () => {
     request.user_agent = 'testing';
 
     it('should failed because wrong password', async () => {
-      await expect(authService.SignIn(request)).rejects.toThrow(UnauthorizedException);
+      await expect(authService.SignIn(request)).rejects.toThrow(BadRequestException);
     });
   });
 

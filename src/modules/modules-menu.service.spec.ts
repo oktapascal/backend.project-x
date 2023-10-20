@@ -3,7 +3,6 @@ import { MODULES_MENU_REPOSITORIES, ModulesMenuRepositoriesImpl } from './module
 import { MODULES_MENU_SERVICES, ModulesMenuServicesImpl } from './modules-menu.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SqlLiteDatasource } from '../test-utils/SqlLiteTestingModule';
-import { ConfigModule } from '@nestjs/config';
 import { CreateModuleMenuRequest } from './request/create-module-menu.request';
 
 describe('ModulesMenuService', () => {
@@ -12,12 +11,7 @@ describe('ModulesMenuService', () => {
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [
-        TypeOrmModule.forRootAsync(SqlLiteDatasource),
-        ConfigModule.forRoot({
-          envFilePath: '.env.dev',
-        }),
-      ],
+      imports: [TypeOrmModule.forRootAsync(SqlLiteDatasource)],
       providers: [
         {
           provide: MODULES_MENU_REPOSITORIES,

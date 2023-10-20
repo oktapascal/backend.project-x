@@ -5,15 +5,14 @@ import { TypeOrmModule } from '@nestjs/typeorm';
 import { SqlLiteDatasource } from '../test-utils/SqlLiteTestingModule';
 import { CreateRoleRequest, UpdateRoleRequest } from './requests';
 import { NotFoundException } from '@nestjs/common';
-import { ConfigModule } from '@nestjs/config';
 
-describe.skip('RolesService', () => {
+describe('RolesService', () => {
   let repo: RolesRepositoriesImpl;
   let service: RolesServiceImpl;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
-      imports: [TypeOrmModule.forRootAsync(SqlLiteDatasource), ConfigModule.forRoot({ envFilePath: '.env.dev' })],
+      imports: [TypeOrmModule.forRootAsync(SqlLiteDatasource)],
       providers: [
         {
           provide: ROLES_REPOSITORIES,

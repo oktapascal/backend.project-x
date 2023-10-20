@@ -4,11 +4,15 @@ import { UsersRepositoriesImpl, USERS_REPOSITORIES } from './users.repositories'
 import { SqlLiteDatasource } from '../test-utils/SqlLiteTestingModule';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CreateUserRequest } from './requests';
+import { ROLES_REPOSITORIES, RolesRepositoriesImpl } from './roles.repositories';
+import { RolesDto } from './dto';
 
-describe.skip('UsersService', () => {
-  let service: UsersServiceImpl;
-  let repo: UsersRepositoriesImpl;
-  let request: CreateUserRequest;
+describe('UsersService', () => {
+  let serviceUser: UsersServiceImpl;
+  let repoUser: UsersRepositoriesImpl;
+  let repoRole: RolesRepositoriesImpl;
+  let requestCreateUser: CreateUserRequest;
+  let dtoRole: RolesDto;
   let user_id: string;
 
   beforeAll(async () => {
@@ -23,71 +27,86 @@ describe.skip('UsersService', () => {
           provide: USERS_REPOSITORIES,
           useClass: UsersRepositoriesImpl,
         },
+        {
+          provide: ROLES_REPOSITORIES,
+          useClass: RolesRepositoriesImpl,
+        },
       ],
     }).compile();
 
-    service = module.get<UsersServiceImpl>(USERS_SERVICES);
-    repo = module.get<UsersRepositoriesImpl>(USERS_REPOSITORIES);
+    serviceUser = module.get<UsersServiceImpl>(USERS_SERVICES);
+    repoUser = module.get<UsersRepositoriesImpl>(USERS_REPOSITORIES);
+    repoRole = module.get<RolesRepositoriesImpl>(ROLES_REPOSITORIES);
 
-    request = new CreateUserRequest();
-    request.username = 'foo';
-    request.password = 'bar';
-    request.full_name = 'foo bar';
-    request.role = 'USER';
+    dtoRole = new RolesDto();
+    dtoRole.role_id = 'ROL.001';
+    dtoRole.name = 'Test role';
+    dtoRole.flag_read = true;
+    dtoRole.flag_insert = true;
+    dtoRole.flag_update = true;
+    dtoRole.flag_delete = true;
+
+    await repoRole.Save(dtoRole);
+
+    requestCreateUser = new CreateUserRequest();
+    requestCreateUser.username = 'foo';
+    requestCreateUser.password = 'bar';
+    requestCreateUser.full_name = 'foo bar';
+    requestCreateUser.role = 'ROL.001';
   });
 
-  it('repositories should be defined', () => {
-    expect(repo).toBeDefined();
+  it('UserRepositories should be defined', () => {
+    expect(repoUser).toBeDefined();
   });
 
-  it('services should be defined', () => {
-    expect(service).toBeDefined();
+  it('UsersService should be defined', () => {
+    expect(serviceUser).toBeDefined();
   });
 
   describe('SaveUser', () => {
     it('should success save user data', async () => {
-      const repospy = jest.spyOn(repo, 'CreateUser');
+      const repospy = jest.spyOn(repoUser, 'CreateUser');
 
-      const result = await service.SaveUser(request);
+      const result = await serviceUser.SaveUser(requestCreateUser);
       user_id = result.user_id;
 
-      expect(result.username).toBe(request.username);
+      expect(result.username).toBe(requestCreateUser.username);
       expect(repospy).toHaveBeenCalled();
     });
   });
 
   describe('GetOneByUsername', () => {
     it('should get user by username', async () => {
-      const repospy = jest.spyOn(repo, 'GetUserByUsername');
+      const repospy = jest.spyOn(repoUser, 'GetUserByUsername');
 
-      const result = await service.GetUserByUsername(request.username);
+      const result = await serviceUser.GetUserByUsername(requestCreateUser.username);
 
-      expect(result.username).toEqual(request.username);
-      expect(repospy).toBeCalledWith(request.username);
+      expect(result.username).toEqual(requestCreateUser.username);
+      expect(repospy).toBeCalledWith(requestCreateUser.username);
     });
 
     it('should not get user because wrong username', () => {
-      const repospy = jest.spyOn(repo, 'GetUserByUsername');
+      const repospy = jest.spyOn(repoUser, 'GetUserByUsername');
 
-      expect(service.GetUserByUsername('bar')).resolves.toBe(null);
+      expect(serviceUser.GetUserByUsername('bar')).resolves.toBe(null);
       expect(repospy).toBeCalledWith('bar');
     });
   });
 
   describe('GetOneById', () => {
     it('should get user by id', async () => {
-      const repospy = jest.spyOn(repo, 'GetUserById');
+      const repospy = jest.spyOn(repoUser, 'GetUserById');
 
-      const result = await service.GetUserById(user_id);
+      const result = await serviceUser.GetUserById(user_id);
 
       expect(result.user_id).toEqual(user_id);
       expect(repospy).toBeCalledWith(user_id);
     });
 
     it('should not found user', () => {
-      const repospy = jest.spyOn(repo, 'GetUserById');
+      const repospy = jest.spyOn(repoUser, 'GetUserById');
 
-      expect(service.GetUserById('usr-002')).resolves.toBe(null);
+      expect(serviceUser.GetUserById('usr-002')).resolves.toBe(null);
       expect(repospy).toBeCalledWith('usr-002');
     });
   });
