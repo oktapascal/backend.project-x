@@ -1,4 +1,4 @@
-import { ForbiddenException, Inject, Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { ForbiddenException, Inject, Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
 import { verify } from '../common/helpers';
 import { USERS_SERVICES, UsersServices } from './users.service';
 import { SigninRequest, RefreshTokenRequest } from './requests';
@@ -58,7 +58,7 @@ export class AuthServicesImpl implements AuthServices {
     const isVerified = await verify(user.password, auth.password);
 
     if (!isVerified)
-      throw new UnauthorizedException([
+      throw new BadRequestException([
         {
           password: 'password tidak sesuai dengan credential anda',
         },
