@@ -1,7 +1,7 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Ip, Patch, Post, UseGuards } from '@nestjs/common';
 import { AUTH_SERVICES, AuthServices } from './auth.service';
 import { Serialize } from '../common/interceptors';
-import { UserDto } from './dto';
+import { UserDto, UserSessionDto } from './dto';
 import { CurrentUser, UserAgent } from './decorators';
 import { Public } from '../common/decorators';
 import { RefreshTokenRequest, SigninRequest } from './requests';
@@ -22,6 +22,7 @@ export class AuthController {
 
   @Post('login')
   @HttpCode(HttpStatus.OK)
+  @Serialize(UserSessionDto)
   @Public()
   async login(@Body() request: SigninRequest, @Ip() ip_address: string, @UserAgent() user_agent: string | undefined) {
     request.ip_address = ip_address;
