@@ -19,6 +19,9 @@ class UserDto {
   user_id: string;
 
   @Expose()
+  username: string;
+
+  @Expose()
   @Type(() => RoleDto)
   role: RoleDto;
 }
