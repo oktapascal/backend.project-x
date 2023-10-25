@@ -9,9 +9,10 @@ import { MODULES_ROLE_SERVICES, ModulesRoleServiceImpl } from './modules-role.se
 import { MODULES_MENU_REPOSITORIES, ModulesMenuRepositoriesImpl } from './modules-menu.repositories';
 import { MODULES_MENU_SERVICES, ModulesMenuServicesImpl } from './modules-menu.service';
 import { MODULES_ROLE_REPOSITORIES, ModulesRoleRepositoriesImpl } from './modules-role.repositories';
+import { ModulesMenuController } from './modules-menu.controller';
 
 @Module({
-  controllers: [ModulesController, ModulesRoleController],
+  controllers: [ModulesController, ModulesRoleController, ModulesMenuController],
   providers: [
     { provide: MODULES_REPOSITORIES, useClass: ModulesRepositoriesImpl },
     { provide: MODULES_SERVICES, useClass: ModulesServicesImpl },
