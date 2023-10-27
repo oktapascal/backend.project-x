@@ -22,4 +22,7 @@ export class ModulesMenu {
 
   @Column({ nullable: true })
   level: number;
+
+  @Column({ nullable: true })
+  menu_icon: string;
 }

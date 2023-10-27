@@ -45,15 +45,18 @@ describe('ModulesMenuService', () => {
           name: 'Menu 1',
           path_url: '/menu1',
           status_active: true,
+          menu_icon: 'ri-settings-3-line',
           children: [
             {
               name: 'Sub Menu 1',
               path_url: '/menu1/submenu1',
               status_active: true,
+              menu_icon: 'ri-settings-3-line',
             },
             {
               name: 'Sub Menu 2',
               path_url: '/menu1/submenu2',
+              menu_icon: 'ri-settings-3-line',
               status_active: true,
             },
           ],
@@ -62,10 +65,12 @@ describe('ModulesMenuService', () => {
           name: 'Menu 2',
           path_url: '/menu2',
           status_active: true,
+          menu_icon: 'ri-settings-3-line',
           children: [
             {
               name: 'Sub Menu 2',
               path_url: '/menu2/submenu1',
+              menu_icon: 'ri-settings-3-line',
               status_active: true,
             },
           ],

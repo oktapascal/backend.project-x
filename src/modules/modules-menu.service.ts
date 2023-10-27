@@ -24,6 +24,7 @@ export class ModulesMenuServicesImpl implements ModulesMenuServices {
         _dto.name = menu.name;
         _dto.level = 0;
         _dto.path_url = menu.path_url;
+        _dto.menu_icon = menu.menu_icon;
         _dto.status_active = menu.status_active;
         _dto.serial_number = serial_number;
         serial_number++;
@@ -34,6 +35,7 @@ export class ModulesMenuServicesImpl implements ModulesMenuServices {
           _childDto.name = child.name;
           _childDto.level = 1;
           _childDto.path_url = child.path_url;
+          _childDto.menu_icon = child.menu_icon;
           _childDto.status_active = child.status_active;
           _childDto.serial_number = serial_number;
           serial_number++;
@@ -57,6 +59,7 @@ export class ModulesMenuServicesImpl implements ModulesMenuServices {
           serial_number: currentItem.serial_number,
           name: currentItem.name,
           path_url: currentItem.path_url,
+          menu_icon: currentItem.menu_icon,
           children: [],
         };
         value.push(parent);
@@ -66,6 +69,7 @@ export class ModulesMenuServicesImpl implements ModulesMenuServices {
           serial_number: currentItem.serial_number,
           name: currentItem.name,
           path_url: currentItem.path_url,
+          menu_icon: currentItem.menu_icon,
         };
         value[indexParent].children.push(children);
       }

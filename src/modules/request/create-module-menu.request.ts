@@ -13,6 +13,9 @@ class MenuDto {
   @ToBoolean()
   status_active: boolean;
 
+  @IsNotEmpty({ message: 'Menu icon wajib diisi' })
+  menu_icon: string;
+
   @IsOptional()
   @IsArray()
   @Type(() => MenuDto)
