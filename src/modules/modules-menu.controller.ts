@@ -1,7 +1,9 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Param, Post } from '@nestjs/common';
 import { MODULES_MENU_SERVICES, ModulesMenuServices } from './modules-menu.service';
 import { CreateModuleMenuRequest } from './request/create-module-menu.request';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Module Menus')
 @Controller('modules-menu')
 export class ModulesMenuController {
   constructor(@Inject(MODULES_MENU_SERVICES) private readonly services: ModulesMenuServices) {}

@@ -4,7 +4,9 @@ import { CurrentUser } from '../users/decorators';
 import { Serialize } from '../common/interceptors';
 import { ModulesDto } from './dto';
 import { CreateModuleRequest, UpdateModuleRequest } from './request';
+import { ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Modules')
 @Controller('module')
 export class ModulesController {
   constructor(@Inject(MODULES_SERVICES) private readonly services: ModulesServices) {}

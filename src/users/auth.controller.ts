@@ -6,12 +6,15 @@ import { CurrentUser, UserAgent } from './decorators';
 import { Public } from '../common/decorators';
 import { RefreshTokenRequest, SigninRequest } from './requests';
 import { RefreshTokenGuard } from '../common/guards';
+import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
+@ApiTags('Auth')
 @Controller('auth')
 export class AuthController {
   constructor(@Inject(AUTH_SERVICES) private readonly authService: AuthServices) {}
 
   @Get('/whoami')
+  @ApiResponse({ status: HttpStatus.OK, description: 'User data based credential token' })
   @HttpCode(HttpStatus.OK)
   @Serialize(UserDto)
   async whoami(@CurrentUser() user: Express.User) {
