@@ -1,4 +1,4 @@
-import { Controller, Inject, Get, HttpCode, HttpStatus, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Inject, Get, HttpCode, HttpStatus, Post, Body, Param, Put, Delete } from '@nestjs/common';
 import { MODULES_SERVICES, ModulesServices } from './modules.service';
 import { CurrentUser } from '../users/decorators';
 import { Serialize } from '../common/interceptors';
@@ -24,7 +24,7 @@ export class ModulesController {
     return this.services.SaveModule(request);
   }
 
-  @Patch('/')
+  @Put('/')
   @HttpCode(HttpStatus.OK)
   UpdateModule(@Body() request: UpdateModuleRequest) {
     return this.services.UpdateModule(request);
