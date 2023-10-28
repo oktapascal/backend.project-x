@@ -74,6 +74,17 @@ describe('ModulesService', () => {
     });
   });
 
+  describe('GetAllModules', () => {
+    it('should show all module data', async () => {
+      const repospy = jest.spyOn(moduleRepo, 'GetAllModules');
+
+      const result = await moduleService.GetAllModules();
+
+      expect(repospy).toBeCalled();
+      expect(result.length).toBeGreaterThanOrEqual(1);
+    });
+  });
+
   describe('DeleteModule', () => {
     it('should delete module data', async () => {
       const repospy = jest.spyOn(moduleRepo, 'DeleteModule');

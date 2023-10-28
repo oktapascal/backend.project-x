@@ -8,6 +8,7 @@ export const MODULES_SERVICES = 'ModulesServices';
 
 export interface ModulesServices {
   GetModulesByUser(user_id: string): Promise<Modules[]>;
+  GetAllModules(): Promise<Modules[]>;
   SaveModule(module: CreateModuleRequest): Promise<Modules>;
   UpdateModule(module: UpdateModuleRequest): Promise<Modules>;
   DeleteModule(module_id: string): Promise<void>;
@@ -40,6 +41,10 @@ export class ModulesServicesImpl implements ModulesServices {
 
   GetModulesByUser(user_id: string): Promise<Modules[]> {
     return this.modulesRepositories.GetModulesByUser(user_id);
+  }
+
+  GetAllModules(): Promise<Modules[]> {
+    return this.modulesRepositories.GetAllModules();
   }
 
   async SaveModule(module: CreateModuleRequest): Promise<Modules> {

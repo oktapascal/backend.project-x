@@ -18,6 +18,12 @@ export class ModulesController {
     return this.services.GetModulesByUser(user['sub']);
   }
 
+  @Get('/all')
+  @HttpCode(HttpStatus.OK)
+  GetModules() {
+    return this.services.GetAllModules();
+  }
+
   @Post('/save')
   @HttpCode(HttpStatus.CREATED)
   SaveModule(@Body() request: CreateModuleRequest) {
