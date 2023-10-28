@@ -18,19 +18,19 @@ export class ModulesController {
     return this.services.GetModulesByUser(user['sub']);
   }
 
-  @Post('/')
+  @Post('/save')
   @HttpCode(HttpStatus.CREATED)
   SaveModule(@Body() request: CreateModuleRequest) {
     return this.services.SaveModule(request);
   }
 
-  @Put('/')
+  @Put('/update')
   @HttpCode(HttpStatus.OK)
   UpdateModule(@Body() request: UpdateModuleRequest) {
     return this.services.UpdateModule(request);
   }
 
-  @Delete('/:module_id')
+  @Delete('/delete/:module_id')
   @HttpCode(HttpStatus.OK)
   async DeleteModule(@Param('module_id') module_id: string) {
     await this.services.DeleteModule(module_id);
