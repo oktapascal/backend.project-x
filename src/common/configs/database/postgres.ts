@@ -1,8 +1,8 @@
 import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from '@nestjs/typeorm';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DataSource } from 'typeorm';
-import { AuthSession, Roles, User, UserProfile } from '../../../users/entities';
-import { Modules, ModulesMenu, ModulesRole } from '../../../modules/entities';
+import { AuthSession, Roles, User, UserProfile } from '../../../UsersManager/entities';
+import { Modules, ModulesMenu, ModulesRole } from '../../../ModulesManager/entities';
 
 export const PgConfig: TypeOrmModuleAsyncOptions = {
   imports: [ConfigModule],

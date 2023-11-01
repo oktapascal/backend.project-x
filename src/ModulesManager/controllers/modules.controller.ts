@@ -1,6 +1,6 @@
 import { Controller, Inject, Get, HttpCode, HttpStatus, Post, Body, Param, Put, Delete } from '@nestjs/common';
 import { MODULES_SERVICES, ModulesServices } from '../services/modules.service';
-import { CurrentUser } from '../../users/decorators';
+import { CurrentUser } from '../../UsersManager/decorators';
 import { Serialize } from '../../common/interceptors';
 import { ModulesDto } from '../dto';
 import { CreateModuleRequest, UpdateModuleRequest } from '../request';

@@ -18,7 +18,7 @@
   },
   "minify.minifyExistingOnSave": true,
   "json.validate.enable": false,
-  "workbench.editor.showTabs": false,
+  "workbench.editor.showTabs": "single",
   "editor.inlineSuggest.enabled": true,
   "editor.minimap.enabled": false,
   "editor.lineNumbers": "relative",
@@ -29,8 +29,6 @@
   "editor.acceptSuggestionOnCommitCharacter": false,
   "explorer.compactFolders": false,
   "workbench.colorTheme": "GitHub Dark Default",
-  "workbench.editor.untitled.hint": "hidden",
-  "workbench.activityBar.visible": true,
   "[javascript]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
@@ -83,6 +81,5 @@
   ],
   "prettier.singleQuote": true,
   "prettier.printWidth": 180,
-  "editor.tabSize": 2,
-  "workbench.editor.empty.hint": "hidden"
+  "editor.tabSize": 2
 }

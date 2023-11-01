@@ -3,7 +3,7 @@ import { Modules, ModulesRole } from '../entities';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
 import { ModulesDto } from '../dto';
-import { User } from '../../users/entities';
+import { User } from '../../UsersManager/entities';
 
 export const MODULES_REPOSITORIES = 'ModulesRepositories';
 

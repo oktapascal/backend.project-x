@@ -1,7 +1,7 @@
-import { AuthSession, Roles, User, UserProfile } from '../users/entities';
+import { AuthSession, Roles, User, UserProfile } from '../UsersManager/entities';
 import { DataSource } from 'typeorm';
 import { TypeOrmModuleAsyncOptions, TypeOrmModuleOptions } from '@nestjs/typeorm';
-import { Modules, ModulesMenu, ModulesRole } from '../modules/entities';
+import { Modules, ModulesMenu, ModulesRole } from '../ModulesManager/entities';
 
 export const SqlLiteDatasource: TypeOrmModuleAsyncOptions = {
   useFactory: (): TypeOrmModuleOptions => ({
