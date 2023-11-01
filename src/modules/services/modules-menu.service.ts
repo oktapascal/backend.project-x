@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { MODULES_MENU_REPOSITORIES, ModulesMenuRepositories } from './modules-menu.repositories';
-import { CreateModuleMenuRequest } from './request/create-module-menu.request';
-import { ModulesMenuDto } from './dto';
+import { MODULES_MENU_REPOSITORIES, ModulesMenuRepositories } from '../reposiories/modules-menu.repositories';
+import { CreateModuleMenuRequest } from '../request/create-module-menu.request';
+import { ModulesMenuDto } from '../dto';
 
 export const MODULES_MENU_SERVICES = 'ModulesMenuServices';
 

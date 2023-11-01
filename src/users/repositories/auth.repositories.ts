@@ -3,9 +3,9 @@ import { DataSource } from 'typeorm';
 import { Inject, Injectable } from '@nestjs/common';
 import { CACHE_MANAGER } from '@nestjs/cache-manager';
 import { Cache } from 'cache-manager';
-import { AuthSessionDto } from './dto';
-import { AuthSession } from './entities';
-import { hashing } from '../common/helpers';
+import { AuthSessionDto } from '../dto';
+import { AuthSession } from '../entities';
+import { hashing } from '../../common/helpers';
 
 export const AUTH_REPOSITORIES = 'AuthRepositories';
 

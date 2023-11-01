@@ -1,19 +1,19 @@
 import { USERS_SERVICES, UsersServiceImpl } from './users.service';
 import { TOKEN_MANAGER_SERVICES, TokenManagerServicesImpl } from './token-manager.service';
-import { AUTH_REPOSITORIES, AuthRepositoriesImpl } from './auth.repositories';
+import { AUTH_REPOSITORIES, AuthRepositoriesImpl } from '../repositories/auth.repositories';
 import { Test, TestingModule } from '@nestjs/testing';
 import { JwtModule } from '@nestjs/jwt';
 import { ConfigModule } from '@nestjs/config';
-import { UsersRepositoriesImpl, USERS_REPOSITORIES } from './users.repositories';
+import { UsersRepositoriesImpl, USERS_REPOSITORIES } from '../repositories/users.repositories';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SqlLiteDatasource } from '../test-utils/SqlLiteTestingModule';
+import { SqlLiteDatasource } from '../../test-utils/SqlLiteTestingModule';
 import { AUTH_SERVICES, AuthServicesImpl } from './auth.service';
-import { CreateUserRequest, RefreshTokenRequest, SigninRequest } from './requests';
+import { CreateUserRequest, RefreshTokenRequest, SigninRequest } from '../requests';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { CacheModule } from '@nestjs/cache-manager';
-import { RedisConfig } from '../common/configs/database';
-import { ROLES_REPOSITORIES, RolesRepositoriesImpl } from './roles.repositories';
-import { RolesDto } from './dto';
+import { RedisConfig } from '../../common/configs/database';
+import { ROLES_REPOSITORIES, RolesRepositoriesImpl } from '../repositories/roles.repositories';
+import { RolesDto } from '../dto';
 
 describe('AuthService', () => {
   let authService: AuthServicesImpl;

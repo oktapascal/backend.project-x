@@ -1,11 +1,11 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { USERS_SERVICES, UsersServiceImpl } from './users.service';
-import { UsersRepositoriesImpl, USERS_REPOSITORIES } from './users.repositories';
-import { SqlLiteDatasource } from '../test-utils/SqlLiteTestingModule';
+import { UsersRepositoriesImpl, USERS_REPOSITORIES } from '../repositories/users.repositories';
+import { SqlLiteDatasource } from '../../test-utils/SqlLiteTestingModule';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { CreateUserRequest } from './requests';
-import { ROLES_REPOSITORIES, RolesRepositoriesImpl } from './roles.repositories';
-import { RolesDto } from './dto';
+import { CreateUserRequest } from '../requests';
+import { ROLES_REPOSITORIES, RolesRepositoriesImpl } from '../repositories/roles.repositories';
+import { RolesDto } from '../dto';
 
 describe('UsersService', () => {
   let serviceUser: UsersServiceImpl;

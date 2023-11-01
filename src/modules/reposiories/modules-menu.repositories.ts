@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, EntityManager } from 'typeorm';
-import { ModulesMenu } from './entities';
-import { ModulesMenuDto } from './dto';
+import { ModulesMenu } from '../entities';
+import { ModulesMenuDto } from '../dto';
 
 export const MODULES_MENU_REPOSITORIES = 'ModulesMenuRepositories';
 

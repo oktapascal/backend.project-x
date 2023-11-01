@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { MODULES_SERVICES, ModulesServicesImpl } from './modules.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SqlLiteDatasource } from '../test-utils/SqlLiteTestingModule';
-import { MODULES_REPOSITORIES, ModulesRepositoriesImpl } from './modules.repositories';
-import { CreateModuleRequest, UpdateModuleRequest } from './request';
+import { SqlLiteDatasource } from '../../test-utils/SqlLiteTestingModule';
+import { MODULES_REPOSITORIES, ModulesRepositoriesImpl } from '../reposiories/modules.repositories';
+import { CreateModuleRequest, UpdateModuleRequest } from '../request';
 import { NotFoundException } from '@nestjs/common';
 
 describe('ModulesService', () => {

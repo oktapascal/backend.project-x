@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { CreateModuleRoleRequest } from './request';
-import { MODULES_ROLE_REPOSITORIES, ModulesRoleRepositories } from './modules-role.repositories';
-import { ModulesRoleDto } from './dto';
+import { CreateModuleRoleRequest } from '../request';
+import { MODULES_ROLE_REPOSITORIES, ModulesRoleRepositories } from '../reposiories/modules-role.repositories';
+import { ModulesRoleDto } from '../dto';
 
 export const MODULES_ROLE_SERVICES = 'ModulesRoleService';
 

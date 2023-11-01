@@ -1,9 +1,9 @@
 import { BadRequestException, Inject, Injectable } from '@nestjs/common';
-import { User } from './entities';
-import { USERS_REPOSITORIES, UsersRepositories } from './users.repositories';
-import { CreateUserRequest } from './requests';
-import { hashing } from '../common/helpers';
-import { UserDto, UserProfileDto } from './dto';
+import { User } from '../entities';
+import { USERS_REPOSITORIES, UsersRepositories } from '../repositories/users.repositories';
+import { CreateUserRequest } from '../requests';
+import { hashing } from '../../common/helpers';
+import { UserDto, UserProfileDto } from '../dto';
 
 export const USERS_SERVICES = 'UsersServices';
 

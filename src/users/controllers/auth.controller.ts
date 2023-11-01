@@ -1,11 +1,11 @@
 import { Body, Controller, Get, HttpCode, HttpStatus, Inject, Ip, Patch, Post, UseGuards } from '@nestjs/common';
-import { AUTH_SERVICES, AuthServices } from './auth.service';
-import { Serialize } from '../common/interceptors';
-import { UserDto, UserSessionDto } from './dto';
-import { CurrentUser, UserAgent } from './decorators';
-import { Public } from '../common/decorators';
-import { RefreshTokenRequest, SigninRequest } from './requests';
-import { RefreshTokenGuard } from '../common/guards';
+import { AUTH_SERVICES, AuthServices } from '../services/auth.service';
+import { Serialize } from '../../common/interceptors';
+import { UserDto, UserSessionDto } from '../dto';
+import { CurrentUser, UserAgent } from '../decorators';
+import { Public } from '../../common/decorators';
+import { RefreshTokenRequest, SigninRequest } from '../requests';
+import { RefreshTokenGuard } from '../../common/guards';
 import { ApiResponse, ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Auth')

@@ -1,8 +1,8 @@
 import { Injectable, Inject, NotFoundException } from '@nestjs/common';
-import { Modules } from './entities';
-import { MODULES_REPOSITORIES, ModulesRepositories } from './modules.repositories';
-import { CreateModuleRequest, UpdateModuleRequest } from './request';
-import { ModulesDto } from './dto';
+import { Modules } from '../entities';
+import { MODULES_REPOSITORIES, ModulesRepositories } from '../reposiories/modules.repositories';
+import { CreateModuleRequest, UpdateModuleRequest } from '../request';
+import { ModulesDto } from '../dto';
 
 export const MODULES_SERVICES = 'ModulesServices';
 

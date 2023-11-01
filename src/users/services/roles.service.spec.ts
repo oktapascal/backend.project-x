@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { ROLES_REPOSITORIES, RolesRepositoriesImpl } from './roles.repositories';
+import { ROLES_REPOSITORIES, RolesRepositoriesImpl } from '../repositories/roles.repositories';
 import { ROLES_SERVICES, RolesServiceImpl } from './roles.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SqlLiteDatasource } from '../test-utils/SqlLiteTestingModule';
-import { CreateRoleRequest, UpdateRoleRequest } from './requests';
+import { SqlLiteDatasource } from '../../test-utils/SqlLiteTestingModule';
+import { CreateRoleRequest, UpdateRoleRequest } from '../requests';
 import { NotFoundException } from '@nestjs/common';
 
 describe('RolesService', () => {

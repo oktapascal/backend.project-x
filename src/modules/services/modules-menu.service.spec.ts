@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MODULES_MENU_REPOSITORIES, ModulesMenuRepositoriesImpl } from './modules-menu.repositories';
+import { MODULES_MENU_REPOSITORIES, ModulesMenuRepositoriesImpl } from '../reposiories/modules-menu.repositories';
 import { MODULES_MENU_SERVICES, ModulesMenuServicesImpl } from './modules-menu.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SqlLiteDatasource } from '../test-utils/SqlLiteTestingModule';
-import { CreateModuleMenuRequest } from './request/create-module-menu.request';
+import { SqlLiteDatasource } from '../../test-utils/SqlLiteTestingModule';
+import { CreateModuleMenuRequest } from '../request/create-module-menu.request';
 
 describe('ModulesMenuService', () => {
   let repo: ModulesMenuRepositoriesImpl;

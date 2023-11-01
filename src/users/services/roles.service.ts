@@ -1,8 +1,8 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { Roles } from './entities';
-import { CreateRoleRequest, UpdateRoleRequest } from './requests';
-import { ROLES_REPOSITORIES, RolesRepositoriesImpl } from './roles.repositories';
-import { RolesDto } from './dto';
+import { Roles } from '../entities';
+import { CreateRoleRequest, UpdateRoleRequest } from '../requests';
+import { ROLES_REPOSITORIES, RolesRepositoriesImpl } from '../repositories/roles.repositories';
+import { RolesDto } from '../dto';
 
 export const ROLES_SERVICES = 'RolesServices';
 

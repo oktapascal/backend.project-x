@@ -1,9 +1,9 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { MODULES_ROLE_REPOSITORIES, ModulesRoleRepositoriesImpl } from './modules-role.repositories';
+import { MODULES_ROLE_REPOSITORIES, ModulesRoleRepositoriesImpl } from '../reposiories/modules-role.repositories';
 import { MODULES_ROLE_SERVICES, ModulesRoleServiceImpl } from './modules-role.service';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { SqlLiteDatasource } from '../test-utils/SqlLiteTestingModule';
-import { CreateModuleRoleRequest } from './request';
+import { SqlLiteDatasource } from '../../test-utils/SqlLiteTestingModule';
+import { CreateModuleRoleRequest } from '../request';
 
 describe('ModulesRoleService', () => {
   let repo: ModulesRoleRepositoriesImpl;

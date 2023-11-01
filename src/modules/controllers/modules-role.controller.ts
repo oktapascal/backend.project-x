@@ -1,6 +1,6 @@
 import { Body, Controller, HttpCode, HttpStatus, Inject, Post } from '@nestjs/common';
-import { CreateModuleRoleRequest } from './request';
-import { MODULES_ROLE_SERVICES, ModulesRoleService } from './modules-role.service';
+import { CreateModuleRoleRequest } from '../request';
+import { MODULES_ROLE_SERVICES, ModulesRoleService } from '../services/modules-role.service';
 import { ApiTags } from '@nestjs/swagger';
 
 @ApiTags('Role Modules')

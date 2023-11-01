@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
-import { ModulesRoleDto } from './dto';
+import { ModulesRoleDto } from '../dto';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource, EntityManager } from 'typeorm';
-import { ModulesRole } from './entities';
+import { ModulesRole } from '../entities';
 
 export const MODULES_ROLE_REPOSITORIES = 'ModulesRoleRepositories';
 

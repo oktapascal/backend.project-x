@@ -1,11 +1,5 @@
-import {
-  CallHandler,
-  ExecutionContext,
-  Inject,
-  Injectable,
-  NestInterceptor,
-} from '@nestjs/common';
-import { USERS_SERVICES, UsersServices } from '../users.service';
+import { CallHandler, ExecutionContext, Inject, Injectable, NestInterceptor } from '@nestjs/common';
+import { USERS_SERVICES, UsersServices } from '../services/users.service';
 
 @Injectable()
 export class CurrentUserInterceptor implements NestInterceptor {

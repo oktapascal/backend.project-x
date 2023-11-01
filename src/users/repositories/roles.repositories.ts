@@ -1,6 +1,6 @@
 import { InjectDataSource } from '@nestjs/typeorm';
-import { RolesDto } from './dto';
-import { Roles } from './entities';
+import { RolesDto } from '../dto';
+import { Roles } from '../entities';
 import { DataSource } from 'typeorm';
 import { Injectable } from '@nestjs/common';
 

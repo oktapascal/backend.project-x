@@ -1,8 +1,8 @@
-import { User, UserProfile } from './entities';
+import { User, UserProfile } from '../entities';
 import { Injectable } from '@nestjs/common';
 import { InjectDataSource } from '@nestjs/typeorm';
 import { DataSource } from 'typeorm';
-import { UserDto, UserProfileDto } from './dto';
+import { UserDto, UserProfileDto } from '../dto';
 
 export const USERS_REPOSITORIES = 'UsersRepositories';
 

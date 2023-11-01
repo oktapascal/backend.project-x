@@ -1,12 +1,12 @@
 import { ForbiddenException, Inject, Injectable, NotFoundException, BadRequestException } from '@nestjs/common';
-import { verify } from '../common/helpers';
+import { verify } from '../../common/helpers';
 import { USERS_SERVICES, UsersServices } from './users.service';
-import { SigninRequest, RefreshTokenRequest } from './requests';
-import { AUTH_REPOSITORIES, AuthRepositories } from './auth.repositories';
+import { SigninRequest, RefreshTokenRequest } from '../requests';
+import { AUTH_REPOSITORIES, AuthRepositories } from '../repositories/auth.repositories';
 import { TOKEN_MANAGER_SERVICES, TokenManagerServices } from './token-manager.service';
-import { AuthSessionDto } from './dto';
-import { User } from './entities';
-import { SessionPayload } from './web';
+import { AuthSessionDto } from '../dto';
+import { User } from '../entities';
+import { SessionPayload } from '../web';
 
 export const AUTH_SERVICES = 'AuthServices';
 
