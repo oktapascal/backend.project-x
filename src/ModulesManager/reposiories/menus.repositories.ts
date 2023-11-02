@@ -26,7 +26,7 @@ export class MenusRepositoriesImpl implements MenusRepositories {
   }
 
   GetAllMenus(): Promise<Menus[]> {
-    return this.datasource.getRepository(Menus).createQueryBuilder().orderBy('id', 'ASC').getMany();
+    return this.datasource.getRepository(Menus).createQueryBuilder().where('status_active = true').orderBy('id', 'ASC').getMany();
   }
 
   GetOneMenu(menu_id: string): Promise<Menus> {
@@ -49,6 +49,6 @@ export class MenusRepositoriesImpl implements MenusRepositories {
   }
 
   async DeleteMenu(menu_id: string): Promise<void> {
-    this.datasource.createQueryBuilder().delete().from(Menus).where('menu_id = :menu_id', { menu_id }).execute();
+    this.datasource.createQueryBuilder().update(Menus).set({ status_active: false }).where('menu_id = :menu_id', { menu_id }).execute();
   }
 }

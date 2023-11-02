@@ -9,6 +9,7 @@ export const MODULES_SERVICES = 'ModulesServices';
 export interface ModulesServices {
   GetModulesByUser(user_id: string): Promise<Modules[]>;
   GetAllModules(): Promise<Modules[]>;
+  GetOneModule(module_id: string): Promise<Modules>;
   SaveModule(module: CreateModuleRequest): Promise<Modules>;
   UpdateModule(module: UpdateModuleRequest): Promise<Modules>;
   DeleteModule(module_id: string): Promise<void>;
@@ -47,6 +48,10 @@ export class ModulesServicesImpl implements ModulesServices {
     return this.modulesRepositories.GetAllModules();
   }
 
+  GetOneModule(module_id: string): Promise<Modules> {
+    return this.modulesRepositories.GetOneModule(module_id);
+  }
+
   async SaveModule(module: CreateModuleRequest): Promise<Modules> {
     const id = await this.NewModuleId();
 
@@ -62,7 +67,7 @@ export class ModulesServicesImpl implements ModulesServices {
   async UpdateModule(module: UpdateModuleRequest): Promise<Modules> {
     const _module = await this.modulesRepositories.GetOneModule(module.id);
 
-    if (!_module) throw new NotFoundException([{ field: 'id', error: 'id modul tidak ditemukan' }]);
+    if (!_module) throw new NotFoundException([{ field: 'module_id', error: 'id modul tidak ditemukan' }]);
 
     const dto = new ModulesDto();
     dto.module_id = module.id;
