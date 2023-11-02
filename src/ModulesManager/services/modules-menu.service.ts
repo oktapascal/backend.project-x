@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { MODULES_MENU_REPOSITORIES, ModulesMenuRepositories } from '../reposiories/modules-menu.repositories';
 import { CreateModuleMenuRequest } from '../request/create-module-menu.request';
-import { ModulesMenuDto } from '../dto';
+import { ModulesMenuCreateDto, ModulesMenuDto } from '../dto';
 
 export const MODULES_MENU_SERVICES = 'ModulesMenuServices';
 
@@ -19,23 +19,19 @@ export class ModulesMenuServicesImpl implements ModulesMenuServices {
 
     const dto = menus.menus
       .map((menu) => {
-        const _dto = new ModulesMenuDto();
+        const _dto = new ModulesMenuCreateDto();
         _dto.module_id = menus.module_id;
-        _dto.name = menu.name;
         _dto.level = 0;
-        _dto.path_url = menu.path_url;
-        _dto.menu_icon = menu.menu_icon;
+        _dto.menu_id = menu.menu_id;
         _dto.status_active = menu.status_active;
         _dto.serial_number = serial_number;
         serial_number++;
 
         const childrenDto = (menu.children || []).map((child) => {
-          const _childDto = new ModulesMenuDto();
+          const _childDto = new ModulesMenuCreateDto();
           _childDto.module_id = menus.module_id;
-          _childDto.name = child.name;
           _childDto.level = 1;
-          _childDto.path_url = child.path_url;
-          _childDto.menu_icon = child.menu_icon;
+          _childDto.menu_id = child.menu_id;
           _childDto.status_active = child.status_active;
           _childDto.serial_number = serial_number;
           serial_number++;
@@ -55,11 +51,11 @@ export class ModulesMenuServicesImpl implements ModulesMenuServices {
 
     const menus: ModulesMenuDto[] = result.reduce((value, currentItem) => {
       if (currentItem.level === 0) {
-        const parent = {
+        const parent: ModulesMenuDto = {
           serial_number: currentItem.serial_number,
-          name: currentItem.name,
-          path_url: currentItem.path_url,
-          menu_icon: currentItem.menu_icon,
+          name: currentItem.menu.name,
+          path_url: currentItem.menu.path_url,
+          menu_icon: currentItem.menu.menu_icon,
           children: [],
         };
         value.push(parent);
@@ -67,9 +63,9 @@ export class ModulesMenuServicesImpl implements ModulesMenuServices {
         const indexParent = value.length - 1;
         const children = {
           serial_number: currentItem.serial_number,
-          name: currentItem.name,
-          path_url: currentItem.path_url,
-          menu_icon: currentItem.menu_icon,
+          name: currentItem.menu.name,
+          path_url: currentItem.menu.path_url,
+          menu_icon: currentItem.menu.menu_icon,
         };
         value[indexParent].children.push(children);
       }

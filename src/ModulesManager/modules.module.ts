@@ -10,9 +10,12 @@ import { MODULES_MENU_REPOSITORIES, ModulesMenuRepositoriesImpl } from './reposi
 import { MODULES_MENU_SERVICES, ModulesMenuServicesImpl } from './services/modules-menu.service';
 import { MODULES_ROLE_REPOSITORIES, ModulesRoleRepositoriesImpl } from './reposiories/modules-role.repositories';
 import { ModulesMenuController } from './controllers/modules-menu.controller';
+import { MenusController } from './controllers/menus.controller';
+import { MENUS_REPOSITORIES, MenusRepositoriesImpl } from './reposiories/menus.repositories';
+import { MENUS_SERVICES, MenusServicesImpl } from './services/menus.service';
 
 @Module({
-  controllers: [ModulesController, ModulesRoleController, ModulesMenuController],
+  controllers: [ModulesController, ModulesRoleController, ModulesMenuController, MenusController],
   providers: [
     { provide: MODULES_REPOSITORIES, useClass: ModulesRepositoriesImpl },
     { provide: MODULES_SERVICES, useClass: ModulesServicesImpl },
@@ -20,6 +23,8 @@ import { ModulesMenuController } from './controllers/modules-menu.controller';
     { provide: MODULES_ROLE_SERVICES, useClass: ModulesRoleServiceImpl },
     { provide: MODULES_MENU_REPOSITORIES, useClass: ModulesMenuRepositoriesImpl },
     { provide: MODULES_MENU_SERVICES, useClass: ModulesMenuServicesImpl },
+    { provide: MENUS_REPOSITORIES, useClass: MenusRepositoriesImpl },
+    { provide: MENUS_SERVICES, useClass: MenusServicesImpl },
     { provide: APP_GUARD, useClass: AccessTokenGuard },
   ],
 })

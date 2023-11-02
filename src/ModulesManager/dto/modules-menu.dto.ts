@@ -8,3 +8,12 @@ export class ModulesMenuDto {
   level?: number;
   children?: ModulesMenuDto[];
 }
+
+export class ModulesMenuCreateDto {
+  module_id: string;
+  menu_id: string;
+  serial_number: number;
+  status_active: boolean;
+  level: number;
+  children?: ModulesMenuDto[];
+}

@@ -1,4 +1,5 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
+import { Menus } from './menus.enitity';
 
 @Entity('module_menus')
 export class ModulesMenu {
@@ -19,4 +20,6 @@ export class ModulesMenu {
 
   @Column({ nullable: true })
   level: number;
+
+  menu: Menus;
 }

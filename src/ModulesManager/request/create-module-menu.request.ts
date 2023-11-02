@@ -4,17 +4,11 @@ import { Type } from 'class-transformer';
 import { ApiProperty } from '@nestjs/swagger';
 
 class MenuDto {
-  @IsNotEmpty({ message: 'Nama menu wajib diisi' })
+  @IsNotEmpty({ message: 'ID Menu wajib diisi' })
   @ApiProperty({
-    description: 'Nama menu',
+    description: 'ID menu',
   })
-  name: string;
-
-  @IsNotEmpty({ message: 'URL menu wajib diisi' })
-  @ApiProperty({
-    description: 'URL menu',
-  })
-  path_url: string;
+  menu_id: string;
 
   @IsNotEmpty({ message: 'Status active wajib diisi' })
   @ToBoolean()
@@ -22,12 +16,6 @@ class MenuDto {
     description: 'Status aktif menu',
   })
   status_active: boolean;
-
-  @IsNotEmpty({ message: 'Menu icon wajib diisi' })
-  @ApiProperty({
-    description: 'Icon menu',
-  })
-  menu_icon: string;
 
   @IsOptional()
   @IsArray()

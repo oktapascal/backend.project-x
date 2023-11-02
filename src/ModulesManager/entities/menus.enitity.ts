@@ -16,4 +16,7 @@ export class Menus {
 
   @Column({ nullable: true })
   path_url: string;
+
+  @Column({ nullable: true })
+  status_active: boolean;
 }

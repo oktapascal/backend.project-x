@@ -24,6 +24,12 @@ export class ModulesController {
     return this.services.GetAllModules();
   }
 
+  @Get('/show/:module_id')
+  @HttpCode(HttpStatus.OK)
+  GetModule(@Param('module_id') module_id: string) {
+    return this.services.GetOneModule(module_id);
+  }
+
   @Post('/save')
   @HttpCode(HttpStatus.CREATED)
   SaveModule(@Body() request: CreateModuleRequest) {
