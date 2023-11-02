@@ -1,22 +1,19 @@
 import { Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
 
-@Entity('module_menus')
-export class ModulesMenu {
+@Entity('menus')
+export class Menus {
   @PrimaryGeneratedColumn('identity', { generatedIdentity: 'ALWAYS' })
   id: number;
 
-  @Column({ nullable: true })
-  module_id: string;
-
-  @Column({ nullable: true })
-  serial_number: number;
-
-  @Column({ nullable: true })
+  @Column({ unique: true })
   menu_id: string;
 
   @Column({ nullable: true })
-  status_active: boolean;
+  name: string;
 
   @Column({ nullable: true })
-  level: number;
+  menu_icon: string;
+
+  @Column({ nullable: true })
+  path_url: string;
 }

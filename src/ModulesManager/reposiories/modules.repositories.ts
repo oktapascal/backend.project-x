@@ -24,7 +24,7 @@ export class ModulesRepositoriesImpl implements ModulesRepositories {
   async UpdateModule(module: ModulesDto): Promise<Modules> {
     await this.datasource.createQueryBuilder().update(Modules).set({ name: module.name, module_icon: module.module_icon }).where('module_id = :module_id', { module_id: module.module_id }).execute();
 
-    return this.datasource.getRepository(Modules).createQueryBuilder().where('module_id = :module_id', { module_id: module.module_id }).getOne();
+    return this.GetOneModule(module.module_id);
   }
 
   async CreateModule(module: ModulesDto): Promise<Modules> {
@@ -41,7 +41,7 @@ export class ModulesRepositoriesImpl implements ModulesRepositories {
       })
       .execute();
 
-    return this.datasource.getRepository(Modules).createQueryBuilder().where('module_id = :module_id', { module_id: module.module_id }).getOne();
+    return this.GetOneModule(module.module_id);
   }
 
   GetLastModuleId(): Promise<Modules> {
