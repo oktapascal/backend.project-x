@@ -20,7 +20,12 @@ export class MenusRepositoriesImpl implements MenusRepositories {
   constructor(@InjectDataSource() private readonly datasource: DataSource) {}
 
   async CreateMenu(menu: MenusDto): Promise<Menus> {
-    await this.datasource.createQueryBuilder().insert().into(Menus).values({ menu_id: menu.menu_id, name: menu.name, menu_icon: menu.menu_icon, path_url: menu.path_url }).execute();
+    await this.datasource
+      .createQueryBuilder()
+      .insert()
+      .into(Menus)
+      .values({ menu_id: menu.menu_id, name: menu.name, menu_icon: menu.menu_icon, path_url: menu.path_url, status_active: true })
+      .execute();
 
     return this.GetOneMenu(menu.menu_id);
   }

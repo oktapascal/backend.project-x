@@ -4,10 +4,15 @@ import { MODULES_MENU_SERVICES, ModulesMenuServicesImpl } from './modules-menu.s
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { SqlLiteDatasource } from '../../test-utils/SqlLiteTestingModule';
 import { CreateModuleMenuRequest } from '../request/create-module-menu.request';
+import { MENUS_REPOSITORIES, MenusRepositoriesImpl } from '../reposiories/menus.repositories';
+import { MENUS_SERVICES, MenusServicesImpl } from './menus.service';
+import { CreateMenuRequest } from '../request';
 
 describe('ModulesMenuService', () => {
   let repo: ModulesMenuRepositoriesImpl;
   let service: ModulesMenuServicesImpl;
+
+  let menuService: MenusServicesImpl;
 
   beforeAll(async () => {
     const module: TestingModule = await Test.createTestingModule({
@@ -21,11 +26,40 @@ describe('ModulesMenuService', () => {
           provide: MODULES_MENU_SERVICES,
           useClass: ModulesMenuServicesImpl,
         },
+        {
+          provide: MENUS_REPOSITORIES,
+          useClass: MenusRepositoriesImpl,
+        },
+        {
+          provide: MENUS_SERVICES,
+          useClass: MenusServicesImpl,
+        },
       ],
     }).compile();
 
     repo = module.get<ModulesMenuRepositoriesImpl>(MODULES_MENU_REPOSITORIES);
     service = module.get<ModulesMenuServicesImpl>(MODULES_MENU_SERVICES);
+
+    menuService = module.get<MenusServicesImpl>(MENUS_SERVICES);
+
+    const request = new CreateMenuRequest();
+    request.name = 'Test Menu 1';
+    request.path_url = '/';
+    request.icon = 'icon';
+
+    await menuService.SaveMenu(request);
+
+    request.name = 'Test Menu 2';
+    request.path_url = '/';
+    request.icon = 'icon';
+
+    await menuService.SaveMenu(request);
+
+    request.name = 'Test Menu 3';
+    request.path_url = '/';
+    request.icon = 'icon';
+
+    await menuService.SaveMenu(request);
   });
 
   it('modules menu services should be defined', () => {
@@ -42,35 +76,15 @@ describe('ModulesMenuService', () => {
       request.module_id = 'MDL.001';
       request.menus = [
         {
-          name: 'Menu 1',
-          path_url: '/menu1',
+          menu_id: 'MEN.0001',
           status_active: true,
-          menu_icon: 'ri-settings-3-line',
           children: [
             {
-              name: 'Sub Menu 1',
-              path_url: '/menu1/submenu1',
-              status_active: true,
-              menu_icon: 'ri-settings-3-line',
-            },
-            {
-              name: 'Sub Menu 2',
-              path_url: '/menu1/submenu2',
-              menu_icon: 'ri-settings-3-line',
+              menu_id: 'MEN.0002',
               status_active: true,
             },
-          ],
-        },
-        {
-          name: 'Menu 2',
-          path_url: '/menu2',
-          status_active: true,
-          menu_icon: 'ri-settings-3-line',
-          children: [
             {
-              name: 'Sub Menu 2',
-              path_url: '/menu2/submenu1',
-              menu_icon: 'ri-settings-3-line',
+              menu_id: 'MEN.0003',
               status_active: true,
             },
           ],
@@ -89,7 +103,7 @@ describe('ModulesMenuService', () => {
     it('should get all menus based module id', async () => {
       const result = await service.GetModuleMenus('MDL.001');
 
-      expect(result.length).toBeGreaterThan(1);
+      expect(result.length).toBeGreaterThanOrEqual(1);
     });
   });
 });

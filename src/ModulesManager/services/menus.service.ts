@@ -56,6 +56,7 @@ export class MenusServicesImpl implements MenusServices {
     dto.name = menu.name;
     dto.menu_icon = menu.icon;
     dto.path_url = menu.path_url;
+    
 
     return this.menusRepositories.CreateMenu(dto);
   }

@@ -80,8 +80,19 @@ describe('ModulesService', () => {
 
       const result = await moduleService.GetAllModules();
 
-      expect(repospy).toBeCalled();
+      expect(repospy).toHaveBeenCalled();
       expect(result.length).toBeGreaterThanOrEqual(1);
+    });
+  });
+
+  describe('GetOneModule', () => {
+    it('should get module data by id module', async () => {
+      const repospy = jest.spyOn(moduleRepo, 'GetOneModule');
+
+      const result = await moduleService.GetOneModule('MDL.001');
+
+      expect(result.module_id).toEqual('MDL.001');
+      expect(repospy).toHaveBeenCalledWith('MDL.001');
     });
   });
 
@@ -91,7 +102,7 @@ describe('ModulesService', () => {
 
       await moduleService.DeleteModule('MDL.001');
 
-      expect(repospy).toBeCalledWith('MDL.001');
+      expect(repospy).toHaveBeenCalledWith('MDL.001');
     });
 
     it('should fail delete module data', async () => {

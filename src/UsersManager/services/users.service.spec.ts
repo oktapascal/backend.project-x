@@ -82,14 +82,14 @@ describe('UsersService', () => {
       const result = await serviceUser.GetUserByUsername(requestCreateUser.username);
 
       expect(result.username).toEqual(requestCreateUser.username);
-      expect(repospy).toBeCalledWith(requestCreateUser.username);
+      expect(repospy).toHaveBeenCalledWith(requestCreateUser.username);
     });
 
     it('should not get user because wrong username', () => {
       const repospy = jest.spyOn(repoUser, 'GetUserByUsername');
 
       expect(serviceUser.GetUserByUsername('bar')).resolves.toBe(null);
-      expect(repospy).toBeCalledWith('bar');
+      expect(repospy).toHaveBeenCalledWith('bar');
     });
   });
 
@@ -100,14 +100,14 @@ describe('UsersService', () => {
       const result = await serviceUser.GetUserById(user_id);
 
       expect(result.user_id).toEqual(user_id);
-      expect(repospy).toBeCalledWith(user_id);
+      expect(repospy).toHaveBeenCalledWith(user_id);
     });
 
     it('should not found user', () => {
       const repospy = jest.spyOn(repoUser, 'GetUserById');
 
       expect(serviceUser.GetUserById('usr-002')).resolves.toBe(null);
-      expect(repospy).toBeCalledWith('usr-002');
+      expect(repospy).toHaveBeenCalledWith('usr-002');
     });
   });
 });
