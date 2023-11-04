@@ -96,7 +96,7 @@ describe('MenusServices', () => {
     });
   });
 
-  describe.skip('DeleteMenu', () => {
+  describe('DeleteMenu', () => {
     it('should delete menu data', async () => {
       const repospy = jest.spyOn(menuRepositories, 'DeleteMenu');
 
@@ -106,7 +106,7 @@ describe('MenusServices', () => {
     });
 
     it('should fail delete menu data', async () => {
-      await expect(menuService.DeleteMenu('MEN.0001')).rejects.toThrow(NotFoundException);
+      await expect(menuService.DeleteMenu('MEN.0000')).rejects.toThrow(NotFoundException);
     });
   });
 });

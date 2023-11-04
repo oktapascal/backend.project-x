@@ -3,6 +3,7 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './app.module';
 import { WinstonModule } from 'nest-winston';
 import { format, transports } from 'winston';
+import * as CookieParser from 'cookie-parser';
 import 'winston-daily-rotate-file';
 
 async function bootstrap() {
@@ -43,9 +44,12 @@ async function bootstrap() {
 
   app.enableCors({
     origin: ['http://localhost:5173'],
-    methods: ['POST', 'GET', 'PATCH', 'DELETE'],
+    methods: ['POST', 'GET', 'PATCH', 'PUT', 'DELETE'],
     allowedHeaders: ['Request-Time', 'Accept', 'Content-Type', 'Authorization'],
+    credentials: true,
   });
+
+  app.use(CookieParser());
 
   app.setGlobalPrefix('api');
 
